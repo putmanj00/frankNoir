@@ -1,16 +1,45 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StageCard } from '@/components/StageCard';
 import { INITIAL_STAGES, type Stage } from '@/lib/stages';
+import { loadProgress, saveProgress } from '@/lib/storage';
 
 export default function Home() {
-  const [stages] = useState<Stage[]>(INITIAL_STAGES);
+  const [stages, setStages] = useState<Stage[]>(INITIAL_STAGES);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Load saved progress on mount
+  useEffect(() => {
+    const savedStages = loadProgress();
+    if (savedStages) {
+      setStages(savedStages);
+    }
+    setIsLoaded(true);
+  }, []);
+
+  // Save progress whenever stages change
+  useEffect(() => {
+    if (isLoaded) {
+      saveProgress(stages);
+    }
+  }, [stages, isLoaded]);
 
   const handleStageClick = (stageId: number) => {
     // TODO: Navigate to stage detail page (will implement in later stories)
     console.log('Stage clicked:', stageId);
   };
+
+  // Show loading state
+  if (!isLoaded) {
+    return (
+      <main className="min-h-screen p-4 flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-neon-magenta text-lg font-mono">Loading...</div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen p-4 pb-20">

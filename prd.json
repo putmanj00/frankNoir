@@ -50,7 +50,7 @@
           "id": "E1-S4",
           "title": "Build status chip component (Locked/Active/Completed)",
           "description": "Create status chip using HeroUI Chip component. Colors: Grey (Locked), Gold (Active), Purple (Completed).",
-          "passes": false,
+          "passes": true,
           "acceptanceCriteria": [
             "Status chip component created",
             "Three states: Locked, Active, Completed",
@@ -62,7 +62,7 @@
           "id": "E1-S5",
           "title": "Implement localStorage progress tracking",
           "description": "Create storage.ts utility to save/load stage completion state. Progress survives page refresh.",
-          "passes": false,
+          "passes": true,
           "acceptanceCriteria": [
             "storage.ts utility created",
             "saveProgress() function works",

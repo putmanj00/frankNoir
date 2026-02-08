@@ -105,3 +105,55 @@ Creating an immersive scavenger hunt experience for my wife that recreates 14 ye
 - isPressable prop enables interactive cards (active/completed stages only)
 - Locked stages have reduced opacity (0.6) for visual hierarchy
 
+
+## 2026-02-08 - Story #E1-S4: Build status chip component (Locked/Active/Completed)
+
+**Implementation**:
+- This was completed as part of E1-S3 within StageCard component
+- Used HeroUI Chip component with three status states
+- Locked: default grey chip (HeroUI default variant)
+- Active: Solar Flare Gold (#ffb622) background with dark text
+- Completed: Lisa Frank Purple (#ac3cfe) background with white text
+- Status determined by stage.status property
+
+**Files Changed**:
+- No additional files (implemented in components/StageCard.tsx)
+
+**Testing**:
+- Visual inspection shows correct colors for each state
+- Status transitions work when stage data changes
+- Chips display correctly on mobile viewports
+
+**Learnings**:
+- HeroUI Chip accepts inline styles for custom colors
+- Combining chip with card creates clear visual hierarchy
+- Status indicators are immediately recognizable
+
+
+## 2026-02-08 - Story #E1-S5: Implement localStorage progress tracking
+
+**Implementation**:
+- Created lib/storage.ts with saveProgress() and loadProgress() utilities
+- Added version tracking for future migration support (v1.0)
+- Implemented error handling for corrupt data, quota exceeded, etc.
+- Added helper functions: clearProgress(), hasSavedProgress(), getLastUpdated()
+- Updated app/page.tsx to load saved progress on mount
+- Auto-save progress whenever stages state changes
+- Added loading state while initial data loads
+
+**Files Changed**:
+- lib/storage.ts - localStorage utilities with error handling
+- app/page.tsx - Added useEffect hooks for load/save, loading state
+
+**Testing**:
+- Ran `npm run typecheck` - passes without errors
+- Progress structure includes version, stages array, lastUpdated timestamp
+- Error handling gracefully handles missing/corrupt localStorage data
+- Auto-save triggers on stage state changes
+
+**Learnings**:
+- localStorage is synchronous but can throw errors (quota, corruption)
+- Try-catch blocks essential for robust storage handling
+- Version field enables future data migrations
+- useEffect dependencies control when save occurs (isLoaded flag prevents double-save)
+
