@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --void-black: #030303;
+  --neon-magenta: #f53fe8;
+  --lisa-frank-purple: #ac3cfe;
+  --solar-flare-gold: #ffb622;
+  --acid-yellow: #fffd42;
+}
+
+body {
+  background-color: var(--void-black);
+  color: #ffffff;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* Glassmorphism card style */
+.glass-card {
+  background: rgba(3, 3, 3, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--neon-magenta);
+  border-radius: 8px;
+}
+
+/* Gradient button */
+.gradient-button {
+  background: linear-gradient(135deg, var(--lisa-frank-purple), var(--neon-magenta));
+  border: none;
+  color: white;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.gradient-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px var(--neon-magenta);
+}

@@ -1,0 +1,55 @@
+# FrankNoir - Valentine's Day Scavenger Hunt
+Start Date: 2026-02-08
+Target: 2026-02-14 (Valentine's Day)
+Timeline: 6 days
+
+## Project Overview
+Creating an immersive scavenger hunt experience for my wife that recreates 14 years of relationship history across Cincinnati locations. The experience mimics EXIT: The game with puzzles, GPS tracking, and a "Lisa Frank Noir" aesthetic (cyberpunk/synthwave with neon on black).
+
+## Technical Stack
+- Next.js 16 (App Router)
+- HeroUI + Tailwind CSS
+- TypeScript (strict mode)
+- Client-only (no backend)
+- localStorage for persistence
+- Geolocation API for GPS
+- Web Audio API for puzzles
+- PWA (installable)
+- Vercel hosting
+
+## Story Log
+(Ralph will append here after each story completion)
+
+## 2026-02-08 - Story #E1-S1: Initialize Next.js 16 project with HeroUI + Tailwind
+
+**Implementation**:
+- Installed Next.js 16.1.6, React 19, TypeScript 5.9
+- Installed and configured HeroUI 2.8.8 with Tailwind CSS 4
+- Set up TypeScript in strict mode with proper paths (@/*)
+- Created basic App Router structure with layout and page components
+- Configured JetBrains Mono font via Google Fonts
+- Created globals.css with Lisa Frank Noir color tokens as CSS variables
+
+**Files Changed**:
+- package.json - Added all dependencies and dev scripts
+- tsconfig.json - TypeScript config with strict mode
+- tailwind.config.ts - Tailwind + HeroUI config with custom colors
+- next.config.js - Next.js config with HeroUI transpilePackages
+- postcss.config.mjs - PostCSS config for Tailwind
+- app/layout.tsx - Root layout with HeroUIProvider and JetBrains Mono
+- app/page.tsx - Basic home page placeholder
+- app/globals.css - Color tokens, glassmorphism, and gradient button styles
+- .gitignore - Standard Next.js gitignore
+- .eslintrc.json - ESLint config
+
+**Testing**:
+- Ran `npm run typecheck` - passes without errors
+- All dependencies installed successfully
+- Project structure matches planned architecture
+
+**Learnings**:
+- create-next-app has interactive prompts, manual setup was faster for automation
+- HeroUI requires transpilePackages config in next.config.js
+- CSS variables defined in :root for easy access throughout the app
+- Tailwind 4 is more streamlined than v3
+

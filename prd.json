@@ -1,0 +1,325 @@
+{
+  "project": "FrankNoir",
+  "description": "Valentine's Day scavenger hunt recreating 14 years of relationship history",
+  "targetDate": "2026-02-14",
+  "epics": [
+    {
+      "id": "E1",
+      "title": "Foundation & Core UI",
+      "description": "Setup, design system, and navigation",
+      "stories": [
+        {
+          "id": "E1-S1",
+          "title": "Initialize Next.js 16 project with HeroUI + Tailwind",
+          "description": "Create Next.js 16 project with App Router, install HeroUI, Tailwind CSS, TypeScript. Configure basic project structure.",
+          "passes": true,
+          "acceptanceCriteria": [
+            "Next.js 16 project initialized",
+            "HeroUI installed and configured",
+            "Tailwind CSS configured",
+            "TypeScript strict mode enabled",
+            "Basic folder structure created"
+          ]
+        },
+        {
+          "id": "E1-S2",
+          "title": "Implement Lisa Frank Noir color system and glassmorphism",
+          "description": "Create CSS file with color tokens (void-black, neon-magenta, lisa-frank-purple, solar-flare-gold, acid-yellow). Add glassmorphism styles for cards.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "Color tokens defined as CSS variables",
+            "Glassmorphism card styles created",
+            "Monospaced font (JetBrains Mono) loaded",
+            "Gradient button styles defined"
+          ]
+        },
+        {
+          "id": "E1-S3",
+          "title": "Create timeline dashboard with 15 stage cards",
+          "description": "Build main page.tsx with scrolling timeline. Create StageCard component showing id, title, location, time, status.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "Timeline dashboard page exists",
+            "StageCard component created",
+            "15 placeholder stages displayed",
+            "Vertical scrolling works on mobile",
+            "Lisa Frank Noir styling applied"
+          ]
+        },
+        {
+          "id": "E1-S4",
+          "title": "Build status chip component (Locked/Active/Completed)",
+          "description": "Create status chip using HeroUI Chip component. Colors: Grey (Locked), Gold (Active), Purple (Completed).",
+          "passes": false,
+          "acceptanceCriteria": [
+            "Status chip component created",
+            "Three states: Locked, Active, Completed",
+            "Correct colors for each state",
+            "Integrates with StageCard"
+          ]
+        },
+        {
+          "id": "E1-S5",
+          "title": "Implement localStorage progress tracking",
+          "description": "Create storage.ts utility to save/load stage completion state. Progress survives page refresh.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "storage.ts utility created",
+            "saveProgress() function works",
+            "loadProgress() function works",
+            "Progress persists across page refresh",
+            "Handles corrupt localStorage data gracefully"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E2",
+      "title": "Core Mechanics",
+      "description": "GPS, puzzles, and stage unlocking",
+      "stories": [
+        {
+          "id": "E2-S1",
+          "title": "Implement GPS tracking hook with accuracy fallback",
+          "description": "Create useGPSTracking hook using Geolocation API. Track position, accuracy, and calculate distance to target.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "useGPSTracking hook created",
+            "Returns current position and accuracy",
+            "Calculates distance to target coordinates",
+            "Handles permission denied gracefully",
+            "Shows loading state while acquiring position"
+          ]
+        },
+        {
+          "id": "E2-S2",
+          "title": "Build sequential unlock logic (Stage N+1 unlocks when Stage N completes)",
+          "description": "Implement logic: Stage 1 starts unlocked. Completing Stage N unlocks Stage N+1. All others locked.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "Stage 1 starts Active",
+            "Completing a stage unlocks next stage",
+            "Other stages remain Locked",
+            "Logic persists in localStorage"
+          ]
+        },
+        {
+          "id": "E2-S3",
+          "title": "Build proximity unlock logic (15-meter radius + manual override)",
+          "description": "For GPS-unlocked stages: check if within radius. Add manual override button (dev only) to bypass GPS.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "Proximity check using Haversine formula",
+            "15-meter default radius configurable per stage",
+            "Manual override button (only in dev mode)",
+            "Shows distance to target",
+            "Visual feedback when in range"
+          ]
+        },
+        {
+          "id": "E2-S4",
+          "title": "Create 3-level progressive hint system (subtle → clear → obvious)",
+          "description": "Add hint component that reveals 3 hints sequentially. Each hint is more explicit.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "Hint component created",
+            "Shows hints 1, 2, 3 sequentially on request",
+            "Cannot skip ahead (must request in order)",
+            "Persists which hints were revealed",
+            "Visual styling matches Lisa Frank Noir"
+          ]
+        },
+        {
+          "id": "E2-S5",
+          "title": "Add mock GPS mode (?mock=true) and admin unlock for testing",
+          "description": "Add URL param ?mock=true to simulate GPS at each stage location. Add admin panel to unlock any stage.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "?mock=true URL param works",
+            "Mock mode simulates GPS at stage locations",
+            "Admin panel accessible (dev only)",
+            "Can unlock/lock any stage from admin",
+            "Admin state persists"
+          ]
+        },
+        {
+          "id": "E2-S6",
+          "title": "Create radio frequency slider puzzle (Stage 03)",
+          "description": "Build interactive slider that plays audio at different frequencies. Correct frequency unlocks stage.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "RadioPuzzle component created",
+            "Slider adjusts audio frequency",
+            "Correct frequency triggers unlock",
+            "Visual feedback when correct",
+            "Works with Web Audio API"
+          ]
+        },
+        {
+          "id": "E2-S7",
+          "title": "Build coordinate input validator (Stage 11)",
+          "description": "Create input field for GPS coordinates. Validates format and checks if coordinates match target.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "Coordinate input component created",
+            "Validates latitude/longitude format",
+            "Checks if coordinates match target (within tolerance)",
+            "Shows error for invalid format",
+            "Visual feedback when correct"
+          ]
+        },
+        {
+          "id": "E2-S8",
+          "title": "Add countdown timer component for time-based stages",
+          "description": "Create timer that counts down to a target time. Used for stages with specific timing.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "Countdown component created",
+            "Shows hours, minutes, seconds",
+            "Updates in real-time",
+            "Visual indicator when time reached",
+            "Can configure target time per stage"
+          ]
+        },
+        {
+          "id": "E2-S9",
+          "title": "Implement 'Scan' placeholder button (simulates AR)",
+          "description": "Create button labeled 'Scan' that simulates AR scanning. Shows animation then unlocks stage.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "ScanButton component created",
+            "Button shows 'scanning' animation",
+            "Completes after 2-3 seconds",
+            "Unlocks stage on completion",
+            "Visual feedback matches Lisa Frank Noir"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E3",
+      "title": "Stage Content & Polish",
+      "description": "Populate all 15 stages with clues, narrative, and final testing",
+      "stories": [
+        {
+          "id": "E3-S1",
+          "title": "Research and document GPS coordinates for all 8 locations",
+          "description": "Look up GPS coordinates for: Home, Sleepy Bee, Covington, Art Museum, The Landing, Art of the Brick, Krohn Conservatory, Nicola's. Document in stages.ts.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "Coordinates documented for all 8 locations",
+            "Coordinates verified on Google Maps",
+            "Added to stages.ts file",
+            "Radius per location configured appropriately"
+          ]
+        },
+        {
+          "id": "E3-S2",
+          "title": "Add all stage data (coordinates, clues, narrative text, 3 hints per stage)",
+          "description": "Populate stages.ts with complete data for all 15 stages. Include clues, descriptions, unlock types, and 3 hints each.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "All 15 stages have complete data",
+            "Each stage has 3 progressive hints",
+            "Clues are cryptic but solvable",
+            "Narrative text flows across stages",
+            "Unlock types assigned (gps/puzzle/scan)"
+          ]
+        },
+        {
+          "id": "E3-S3",
+          "title": "Record/add audio for radio puzzle (Stage 03)",
+          "description": "Create or find audio file for radio frequency puzzle. Add to public/audio/. Integrate with RadioPuzzle component.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "Audio file added to public/audio/",
+            "Audio plays in RadioPuzzle component",
+            "Correct frequency identified",
+            "Audio quality is acceptable",
+            "File size optimized for mobile"
+          ]
+        },
+        {
+          "id": "E3-S4",
+          "title": "Implement Safe House pause mechanism (Stage 11, 5:00 PM)",
+          "description": "Stage 11 locks until 5:00 PM. Show countdown timer. Cannot proceed until time is reached.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "Stage 11 shows countdown to 5:00 PM",
+            "Cannot unlock before target time",
+            "Unlocks automatically at 5:00 PM",
+            "Timer shows hours:minutes:seconds remaining",
+            "Handles time zone correctly"
+          ]
+        },
+        {
+          "id": "E3-S5",
+          "title": "Add stage transition animations",
+          "description": "Add smooth transitions when unlocking stages and navigating between stages.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "Unlock animation plays when stage unlocked",
+            "Page transitions are smooth",
+            "Animations match Lisa Frank Noir aesthetic",
+            "Animations don't block interaction",
+            "Performance is good on mobile"
+          ]
+        },
+        {
+          "id": "E3-S6",
+          "title": "Final testing walkthrough using mock mode",
+          "description": "Complete full playthrough in mock GPS mode. Test all 15 stages, puzzles, hints, and unlocks.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "All 15 stages tested in mock mode",
+            "All puzzles are solvable",
+            "All hints work correctly",
+            "Sequential unlocking works",
+            "Progress saves correctly",
+            "No critical bugs found"
+          ]
+        },
+        {
+          "id": "E3-S7",
+          "title": "Field test GPS accuracy at 2-3 real locations",
+          "description": "Drive to 2-3 actual locations and test GPS triggering. Adjust unlock radiuses if needed.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "Tested at 2-3 real locations",
+            "GPS triggers work at correct distance",
+            "Radiuses adjusted if needed",
+            "Accuracy is acceptable in the field",
+            "Tested on actual phone (not just desktop)"
+          ]
+        },
+        {
+          "id": "E3-S8",
+          "title": "Deploy to Vercel, test on your wife's phone",
+          "description": "Deploy to Vercel. Install PWA on her phone (without her knowing content). Test installation and basic functionality.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "App deployed to Vercel",
+            "PWA installs on target phone",
+            "Add to Home Screen works",
+            "App icon shows correctly",
+            "Basic functionality works on target device",
+            "Performance is acceptable"
+          ]
+        },
+        {
+          "id": "E3-S9",
+          "title": "Create printable backup clues (in case of tech issues)",
+          "description": "Create PDF with all clues and solutions. Print as backup in case phone dies or GPS fails.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "PDF created with all clues",
+            "Solutions documented (for your reference)",
+            "Manual unlock codes listed",
+            "Formatted for easy printing",
+            "Stored securely (not committed to git)"
+          ]
+        }
+      ]
+    }
+  ]
+}
