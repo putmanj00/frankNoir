@@ -1,17 +1,18 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import { StageCard } from '@/components/StageCard';
 import { INITIAL_STAGES, type Stage } from '@/lib/stages';
 import { loadProgress, saveProgress } from '@/lib/storage';
 import {
-  completeStage,
   initializeStageStatuses,
   getProgress,
   isJourneyComplete,
 } from '@/lib/unlock';
 
 export default function Home() {
+  const router = useRouter();
   const [stages, setStages] = useState<Stage[]>(() =>
     initializeStageStatuses(INITIAL_STAGES)
   );
@@ -22,6 +23,11 @@ export default function Home() {
     const savedStages = loadProgress();
     if (savedStages) {
       setStages(savedStages);
+    } else {
+      // First time: initialize and save
+      const initializedStages = initializeStageStatuses(INITIAL_STAGES);
+      setStages(initializedStages);
+      saveProgress(initializedStages);
     }
     setIsLoaded(true);
   }, []);
@@ -34,13 +40,8 @@ export default function Home() {
   }, [stages, isLoaded]);
 
   const handleStageClick = (stageId: number) => {
-    // TODO: Navigate to stage detail page (will implement in later stories)
-    console.log('Stage clicked:', stageId);
+    router.push(`/stage/${stageId}`);
   };
-
-  const handleCompleteStage = useCallback((stageId: number) => {
-    setStages((prevStages) => completeStage(prevStages, stageId));
-  }, []);
 
   const progress = getProgress(stages);
   const journeyComplete = isJourneyComplete(stages);

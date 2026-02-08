@@ -1,0 +1,192 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useRouter, useParams } from 'next/navigation';
+import { Button, Card, CardBody } from '@heroui/react';
+import { loadProgress, saveProgress } from '@/lib/storage';
+import { completeStage } from '@/lib/unlock';
+import { ProximityUnlock } from '@/components/ProximityUnlock';
+import type { Stage } from '@/lib/stages';
+
+export default function StagePage() {
+  const router = useRouter();
+  const params = useParams();
+  const stageId = parseInt(params.id as string);
+
+  const [stages, setStages] = useState<Stage[]>([]);
+  const [stage, setStage] = useState<Stage | null>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Check for dev mode
+  const isDevMode =
+    typeof window !== 'undefined' &&
+    (window.location.search.includes('dev=true') ||
+      window.location.hostname === 'localhost');
+
+  useEffect(() => {
+    const savedStages = loadProgress();
+    if (savedStages) {
+      setStages(savedStages);
+      const currentStage = savedStages.find((s) => s.id === stageId);
+      setStage(currentStage || null);
+    }
+    setIsLoaded(true);
+  }, [stageId]);
+
+  const handleComplete = () => {
+    const updatedStages = completeStage(stages, stageId);
+    setStages(updatedStages);
+    saveProgress(updatedStages);
+
+    // Navigate back to timeline after short delay
+    setTimeout(() => {
+      router.push('/');
+    }, 1500);
+  };
+
+  if (!isLoaded || !stage) {
+    return (
+      <main className="min-h-screen p-4 flex items-center justify-center">
+        <div className="text-center text-gray-400">Loading...</div>
+      </main>
+    );
+  }
+
+  // Don't allow access to locked stages
+  if (stage.status === 'locked') {
+    return (
+      <main className="min-h-screen p-4">
+        <div className="max-w-2xl mx-auto space-y-4">
+          <Button variant="flat" onPress={() => router.push('/')}>
+            ← Back
+          </Button>
+          <Card className="glass-card">
+            <CardBody className="p-6 text-center">
+              <p className="text-gray-400 mb-4">🔒 This stage is locked</p>
+              <p className="text-sm text-gray-500">
+                Complete the previous stage to unlock this one.
+              </p>
+            </CardBody>
+          </Card>
+        </div>
+      </main>
+    );
+  }
+
+  return (
+    <main className="min-h-screen p-4">
+      <div className="max-w-2xl mx-auto space-y-6">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <Button variant="flat" onPress={() => router.push('/')}>
+            ← Back
+          </Button>
+          <div className="text-sm font-mono text-gray-400">{stage.time}</div>
+        </div>
+
+        {/* Stage Info */}
+        <div className="space-y-2">
+          <h1 className="text-3xl font-bold text-neon-magenta">
+            {stage.title}
+          </h1>
+          <p className="text-xl text-lisa-frank-purple">{stage.subtitle}</p>
+          <div className="flex items-center gap-2 text-gray-400">
+            <span>📍</span>
+            <span>{stage.location}</span>
+          </div>
+        </div>
+
+        {/* Description */}
+        <Card className="glass-card">
+          <CardBody className="p-6">
+            <p className="text-lg italic text-gray-300 mb-4">
+              "{stage.description}"
+            </p>
+            <div className="border-t border-gray-700 pt-4 mt-4">
+              <p className="text-sm text-gray-400 mb-2 font-bold">Your Mission:</p>
+              <p className="text-gray-300">{stage.clue}</p>
+            </div>
+          </CardBody>
+        </Card>
+
+        {/* Unlock Mechanism */}
+        <Card className="glass-card">
+          <CardBody className="p-6">
+            <h2 className="text-lg font-bold text-gray-300 mb-4">
+              Unlock Method: {stage.unlockType.toUpperCase()}
+            </h2>
+
+            {stage.unlockType === 'gps' && (
+              <ProximityUnlock
+                stage={stage}
+                onUnlock={handleComplete}
+                showManualOverride={isDevMode}
+              />
+            )}
+
+            {stage.unlockType === 'puzzle' && (
+              <div className="space-y-4">
+                <p className="text-sm text-gray-400">
+                  Complete the puzzle to unlock this stage.
+                </p>
+                {/* Puzzle component will be added in later stories */}
+                {isDevMode && (
+                  <Button
+                    className="gradient-button w-full"
+                    onPress={handleComplete}
+                  >
+                    🔓 Complete Puzzle (Dev)
+                  </Button>
+                )}
+              </div>
+            )}
+
+            {stage.unlockType === 'scan' && (
+              <div className="space-y-4">
+                <p className="text-sm text-gray-400">
+                  Scan the target object to unlock this stage.
+                </p>
+                {/* Scan component will be added in later stories */}
+                {isDevMode && (
+                  <Button
+                    className="gradient-button w-full"
+                    onPress={handleComplete}
+                  >
+                    📸 Complete Scan (Dev)
+                  </Button>
+                )}
+              </div>
+            )}
+
+            {stage.unlockType === 'time' && (
+              <div className="space-y-4">
+                <p className="text-sm text-gray-400">
+                  This stage unlocks at a specific time.
+                </p>
+                {/* Countdown timer will be added in later stories */}
+                {isDevMode && (
+                  <Button
+                    className="gradient-button w-full"
+                    onPress={handleComplete}
+                  >
+                    ⏰ Complete Time-lock (Dev)
+                  </Button>
+                )}
+              </div>
+            )}
+          </CardBody>
+        </Card>
+
+        {/* Hints Section (will be populated in E2-S4) */}
+        <Card className="glass-card">
+          <CardBody className="p-6">
+            <h3 className="text-sm font-bold text-gray-400 mb-2">HINTS</h3>
+            <p className="text-xs text-gray-500">
+              Hint system will be available soon...
+            </p>
+          </CardBody>
+        </Card>
+      </div>
+    </main>
+  );
+}

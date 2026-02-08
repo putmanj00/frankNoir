@@ -107,7 +107,7 @@
           "id": "E2-S3",
           "title": "Build proximity unlock logic (15-meter radius + manual override)",
           "description": "For GPS-unlocked stages: check if within radius. Add manual override button (dev only) to bypass GPS.",
-          "passes": false,
+          "passes": true,
           "acceptanceCriteria": [
             "Proximity check using Haversine formula",
             "15-meter default radius configurable per stage",

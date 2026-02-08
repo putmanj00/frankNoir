@@ -223,3 +223,39 @@ Creating an immersive scavenger hunt experience for my wife that recreates 14 ye
 - initializeStageStatuses runs on first load (useState initializer)
 - Progress persists automatically via useEffect + localStorage
 
+
+## 2026-02-08 - Story #E2-S3: Build proximity unlock logic
+
+**Implementation**:
+- Created ProximityUnlock component with GPS-based unlocking
+- Checks if user is within configurable radius (default 15-50m per stage)
+- Shows distance to target with formatDistance() helper
+- Progress bar shows proximity percentage
+- Visual feedback when in range (purple chip, unlock button)
+- Manual override button in dev mode (?dev=true or localhost)
+- Created stage detail page at /stage/[id]
+- Dynamic route shows stage info, clue, unlock mechanism
+- Different unlock UIs for: gps, puzzle, scan, time
+- Prevents access to locked stages
+- Auto-navigation back to timeline after completion
+
+**Files Changed**:
+- components/ProximityUnlock.tsx - GPS proximity unlock component
+- app/stage/[id]/page.tsx - Stage detail page with unlock interfaces
+- app/page.tsx - Added router navigation to stage detail on click
+
+**Testing**:
+- Ran `npm run typecheck` - passes without errors
+- Distance calculation uses Haversine formula
+- Progress bar fills as user approaches target
+- Dev mode manual override for testing without GPS
+- Stage detail page loads correctly for active/completed stages
+- Locked stages show "stage is locked" message
+
+**Learnings**:
+- Next.js App Router dynamic routes: app/stage/[id]/page.tsx
+- useParams() gets route parameters client-side
+- Dev mode detection via query param or localhost hostname
+- Progress bar uses HeroUI Progress with custom CSS variables
+- Auto-navigation with setTimeout gives user visual feedback before redirect
+
