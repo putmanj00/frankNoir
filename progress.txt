@@ -291,3 +291,48 @@ Creating an immersive scavenger hunt experience for my wife that recreates 14 ye
 - Opacity transitions (100% → 50% → 30%) create visual hierarchy
 - Button only appears when hint is next in sequence
 
+
+## 2026-02-08 - Story #E2-S5: Add mock GPS mode and admin unlock
+
+**Implementation**:
+- Created useMockGPS hook to simulate GPS at active stage location
+- Added ?mock=true URL parameter support
+- Mock GPS returns position at active stage's coordinates with 10m accuracy
+- Created AdminPanel component with collapsible interface
+- Admin panel features:
+  - Reset all progress button (clears localStorage + hints)
+  - Force unlock any locked stage (grid of stage buttons)
+  - Status overview (completed/active/locked counts)
+  - Enable mock GPS quick link
+  - URL params documentation
+- Dev mode detection: ?dev=true or localhost
+- Mode indicators on timeline (DEV MODE / MOCK GPS chips)
+- Updated useGPSTracking to accept mockPosition override
+- Mock mode notification on stage detail page
+- Query params persist across navigation
+
+**Files Changed**:
+- hooks/useMockGPS.ts - Mock GPS hook and detection utility
+- components/AdminPanel.tsx - Collapsible admin panel with stage controls
+- hooks/useGPSTracking.ts - Added mockPosition parameter support
+- components/ProximityUnlock.tsx - Pass mockPosition to GPS hook
+- components/GPSStatus.tsx - Pass mockPosition to GPS hook
+- app/page.tsx - Admin panel integration, mode indicators, query param persistence
+- app/stage/[id]/page.tsx - Mock GPS integration, mode notification
+
+**Testing**:
+- Ran `npm run typecheck` - passes without errors
+- ?mock=true simulates being at active stage location
+- Admin panel accessible at ?dev=true or localhost
+- Force unlock works for locked stages
+- Reset progress clears all data + hints
+- Mode indicators show on timeline
+- Query params persist in navigation
+
+**Learnings**:
+- Mock GPS essential for testing without driving to locations
+- Admin panel invaluable for debugging and testing edge cases
+- Query param persistence requires manual URLSearchParams handling
+- Collapsible panel saves screen space (expanded state in local state)
+- Mock position with 10m accuracy triggers "in range" immediately
+

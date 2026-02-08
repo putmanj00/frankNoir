@@ -1,15 +1,17 @@
 import { Chip } from "@heroui/react";
 import { useGPSTracking } from "@/hooks/useGPSTracking";
 import { formatDistance, getAccuracyQuality } from "@/lib/gps";
+import type { GPSPosition } from "@/lib/gps";
 
 interface GPSStatusProps {
   targetLat?: number;
   targetLon?: number;
   showDistance?: boolean;
+  mockPosition?: GPSPosition | null;
 }
 
-export function GPSStatus({ targetLat, targetLon, showDistance = false }: GPSStatusProps) {
-  const { position, error, isLoading, isSupported } = useGPSTracking();
+export function GPSStatus({ targetLat, targetLon, showDistance = false, mockPosition = null }: GPSStatusProps) {
+  const { position, error, isLoading, isSupported } = useGPSTracking({ mockPosition });
 
   if (!isSupported) {
     return (

@@ -7,6 +7,7 @@ import { loadProgress, saveProgress } from '@/lib/storage';
 import { completeStage } from '@/lib/unlock';
 import { ProximityUnlock } from '@/components/ProximityUnlock';
 import { HintSystem } from '@/components/HintSystem';
+import { useMockGPS, isMockGPSEnabled } from '@/hooks/useMockGPS';
 import type { Stage } from '@/lib/stages';
 
 export default function StagePage() {
@@ -18,11 +19,14 @@ export default function StagePage() {
   const [stage, setStage] = useState<Stage | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Check for dev mode
+  // Check for dev mode and mock GPS
   const isDevMode =
     typeof window !== 'undefined' &&
     (window.location.search.includes('dev=true') ||
       window.location.hostname === 'localhost');
+
+  const isMockMode = typeof window !== 'undefined' && isMockGPSEnabled();
+  const mockPosition = useMockGPS(stages, isMockMode);
 
   useEffect(() => {
     const savedStages = loadProgress();
@@ -118,11 +122,19 @@ export default function StagePage() {
             </h2>
 
             {stage.unlockType === 'gps' && (
-              <ProximityUnlock
-                stage={stage}
-                onUnlock={handleComplete}
-                showManualOverride={isDevMode}
-              />
+              <>
+                {isMockMode && (
+                  <div className="mb-4 p-2 bg-lisa-frank-purple/20 border border-lisa-frank-purple rounded text-xs font-mono">
+                    📡 Mock GPS Active: Simulating location at stage target
+                  </div>
+                )}
+                <ProximityUnlock
+                  stage={stage}
+                  onUnlock={handleComplete}
+                  showManualOverride={isDevMode}
+                  mockPosition={mockPosition}
+                />
+              </>
             )}
 
             {stage.unlockType === 'puzzle' && (

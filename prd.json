@@ -133,7 +133,7 @@
           "id": "E2-S5",
           "title": "Add mock GPS mode (?mock=true) and admin unlock for testing",
           "description": "Add URL param ?mock=true to simulate GPS at each stage location. Add admin panel to unlock any stage.",
-          "passes": false,
+          "passes": true,
           "acceptanceCriteria": [
             "?mock=true URL param works",
             "Mock mode simulates GPS at stage locations",

@@ -2,19 +2,22 @@ import { Button, Progress } from "@heroui/react";
 import { useGPSTracking } from "@/hooks/useGPSTracking";
 import { formatDistance, isWithinRadius } from "@/lib/gps";
 import type { Stage } from "@/lib/stages";
+import type { GPSPosition } from "@/lib/gps";
 
 interface ProximityUnlockProps {
   stage: Stage;
   onUnlock: () => void;
   showManualOverride?: boolean;
+  mockPosition?: GPSPosition | null;
 }
 
 export function ProximityUnlock({
   stage,
   onUnlock,
   showManualOverride = false,
+  mockPosition = null,
 }: ProximityUnlockProps) {
-  const { position, error, isLoading } = useGPSTracking();
+  const { position, error, isLoading } = useGPSTracking({ mockPosition });
 
   if (!stage.coordinates || stage.unlockType !== 'gps') {
     return null;

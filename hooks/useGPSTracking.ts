@@ -8,6 +8,7 @@ interface UseGPSTrackingOptions {
   maximumAge?: number;
   minAccuracy?: number; // Minimum acceptable accuracy in meters
   updateInterval?: number; // How often to poll for position (ms)
+  mockPosition?: GPSPosition | null; // Override with mock GPS for testing
 }
 
 interface GPSTrackingState {
@@ -38,6 +39,7 @@ export function useGPSTracking(
     maximumAge = 0,
     minAccuracy = 100, // Accept positions within 100m accuracy
     updateInterval = 5000, // Update every 5 seconds
+    mockPosition = null,
   } = options;
 
   const [position, setPosition] = useState<GPSPosition | null>(null);
@@ -115,6 +117,14 @@ export function useGPSTracking(
   }, [isSupported, handleSuccess, handleError, enableHighAccuracy, timeout, maximumAge]);
 
   useEffect(() => {
+    // If mock position provided, use it and skip real GPS
+    if (mockPosition) {
+      setPosition(mockPosition);
+      setError(null);
+      setIsLoading(false);
+      return;
+    }
+
     if (!isSupported) {
       setError({
         code: -1,
@@ -146,7 +156,7 @@ export function useGPSTracking(
         navigator.geolocation.clearWatch(watchIdRef.current);
       }
     };
-  }, [isSupported, enableHighAccuracy, timeout, maximumAge, handleSuccess, handleError, refresh]);
+  }, [isSupported, enableHighAccuracy, timeout, maximumAge, handleSuccess, handleError, refresh, mockPosition]);
 
   // Helper function to calculate distance to target
   const distanceTo = useCallback(

@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { StageCard } from '@/components/StageCard';
+import { AdminPanel } from '@/components/AdminPanel';
 import { INITIAL_STAGES, type Stage } from '@/lib/stages';
 import { loadProgress, saveProgress } from '@/lib/storage';
 import {
@@ -10,6 +11,7 @@ import {
   getProgress,
   isJourneyComplete,
 } from '@/lib/unlock';
+import { isMockGPSEnabled } from '@/hooks/useMockGPS';
 
 export default function Home() {
   const router = useRouter();
@@ -17,6 +19,20 @@ export default function Home() {
     initializeStageStatuses(INITIAL_STAGES)
   );
   const [isLoaded, setIsLoaded] = useState(false);
+
+  // Check for dev mode and mock GPS
+  const [isDevMode, setIsDevMode] = useState(false);
+  const [isMockMode, setIsMockMode] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      setIsDevMode(
+        params.get('dev') === 'true' || window.location.hostname === 'localhost'
+      );
+      setIsMockMode(isMockGPSEnabled());
+    }
+  }, []);
 
   // Load saved progress on mount
   useEffect(() => {
@@ -40,7 +56,16 @@ export default function Home() {
   }, [stages, isLoaded]);
 
   const handleStageClick = (stageId: number) => {
-    router.push(`/stage/${stageId}`);
+    const params = new URLSearchParams();
+    if (isDevMode) params.set('dev', 'true');
+    if (isMockMode) params.set('mock', 'true');
+    const query = params.toString();
+    router.push(`/stage/${stageId}${query ? `?${query}` : ''}`);
+  };
+
+  const handleStagesUpdate = (updatedStages: Stage[]) => {
+    setStages(updatedStages);
+    saveProgress(updatedStages);
   };
 
   const progress = getProgress(stages);
@@ -69,7 +94,34 @@ export default function Home() {
             14-YEAR PROTOCOL // VALENTINE&apos;S DAY 2026
           </p>
           <div className="h-px w-32 mx-auto bg-gradient-to-r from-transparent via-neon-magenta to-transparent" />
+
+          {/* Mode Indicators */}
+          {(isDevMode || isMockMode) && (
+            <div className="flex gap-2 justify-center pt-2">
+              {isDevMode && (
+                <span className="text-xs px-2 py-1 rounded bg-solar-flare-gold/20 text-solar-flare-gold font-mono">
+                  🔧 DEV MODE
+                </span>
+              )}
+              {isMockMode && (
+                <span className="text-xs px-2 py-1 rounded bg-lisa-frank-purple/20 text-lisa-frank-purple font-mono">
+                  📡 MOCK GPS
+                </span>
+              )}
+            </div>
+          )}
         </div>
+
+        {/* Admin Panel */}
+        {isDevMode && (
+          <div className="mb-6">
+            <AdminPanel
+              stages={stages}
+              onStagesUpdate={handleStagesUpdate}
+              isVisible={isDevMode}
+            />
+          </div>
+        )}
 
         {/* Timeline */}
         <div className="space-y-4">
