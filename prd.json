@@ -95,7 +95,7 @@
           "id": "E2-S2",
           "title": "Build sequential unlock logic (Stage N+1 unlocks when Stage N completes)",
           "description": "Implement logic: Stage 1 starts unlocked. Completing Stage N unlocks Stage N+1. All others locked.",
-          "passes": false,
+          "passes": true,
           "acceptanceCriteria": [
             "Stage 1 starts Active",
             "Completing a stage unlocks next stage",

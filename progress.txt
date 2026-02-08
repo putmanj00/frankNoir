@@ -189,3 +189,37 @@ Creating an immersive scavenger hunt experience for my wife that recreates 14 ye
 - useCallback prevents infinite re-renders in useEffect dependencies
 - GPS quality colors match Lisa Frank Noir palette
 
+
+## 2026-02-08 - Story #E2-S2: Build sequential unlock logic
+
+**Implementation**:
+- Created lib/unlock.ts with stage unlock utilities
+- completeStage() - marks stage complete and unlocks next
+- initializeStageStatuses() - sets Stage 1 as active, rest locked
+- canUnlockStage() - checks if previous stage is completed
+- getActiveStage() - returns current active stage
+- getProgress() - calculates completion percentage
+- isJourneyComplete() - checks if all stages done
+- forceUnlockStage() - admin override for testing
+- Updated app/page.tsx to use sequential unlock logic
+- Added handleCompleteStage callback
+- Added journey complete celebration message
+- Progress persists via localStorage (auto-save)
+
+**Files Changed**:
+- lib/unlock.ts - All sequential unlock utilities
+- app/page.tsx - Integrated unlock logic, progress tracking, complete handler
+
+**Testing**:
+- Ran `npm run typecheck` - passes without errors
+- Stage 1 initializes as 'active'
+- Completing a stage unlocks the next
+- Progress counter shows X/15 stages with percentage
+- Journey complete message shows when all 15 stages done
+
+**Learnings**:
+- Sequential unlock prevents skipping ahead
+- State management with useCallback prevents re-render loops
+- initializeStageStatuses runs on first load (useState initializer)
+- Progress persists automatically via useEffect + localStorage
+

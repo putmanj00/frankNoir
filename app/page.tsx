@@ -1,12 +1,20 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { StageCard } from '@/components/StageCard';
 import { INITIAL_STAGES, type Stage } from '@/lib/stages';
 import { loadProgress, saveProgress } from '@/lib/storage';
+import {
+  completeStage,
+  initializeStageStatuses,
+  getProgress,
+  isJourneyComplete,
+} from '@/lib/unlock';
 
 export default function Home() {
-  const [stages, setStages] = useState<Stage[]>(INITIAL_STAGES);
+  const [stages, setStages] = useState<Stage[]>(() =>
+    initializeStageStatuses(INITIAL_STAGES)
+  );
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Load saved progress on mount
@@ -29,6 +37,13 @@ export default function Home() {
     // TODO: Navigate to stage detail page (will implement in later stories)
     console.log('Stage clicked:', stageId);
   };
+
+  const handleCompleteStage = useCallback((stageId: number) => {
+    setStages((prevStages) => completeStage(prevStages, stageId));
+  }, []);
+
+  const progress = getProgress(stages);
+  const journeyComplete = isJourneyComplete(stages);
 
   // Show loading state
   if (!isLoaded) {
@@ -67,10 +82,20 @@ export default function Home() {
         </div>
 
         {/* Footer Info */}
-        <div className="mt-8 text-center">
+        <div className="mt-8 text-center space-y-2">
           <p className="text-xs text-gray-500 font-mono">
-            {stages.filter(s => s.status === 'completed').length} / {stages.length} STAGES COMPLETED
+            {progress.completed} / {progress.total} STAGES COMPLETED ({progress.percentage}%)
           </p>
+          {journeyComplete && (
+            <div className="glass-card p-4 animate-pulse">
+              <p className="text-lg text-neon-magenta font-bold">
+                🎉 JOURNEY COMPLETE 🎉
+              </p>
+              <p className="text-sm text-gray-400 mt-2">
+                All protocols executed successfully
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </main>
