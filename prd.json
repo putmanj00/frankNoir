@@ -82,7 +82,7 @@
           "id": "E2-S1",
           "title": "Implement GPS tracking hook with accuracy fallback",
           "description": "Create useGPSTracking hook using Geolocation API. Track position, accuracy, and calculate distance to target.",
-          "passes": false,
+          "passes": true,
           "acceptanceCriteria": [
             "useGPSTracking hook created",
             "Returns current position and accuracy",

@@ -157,3 +157,35 @@ Creating an immersive scavenger hunt experience for my wife that recreates 14 ye
 - Version field enables future data migrations
 - useEffect dependencies control when save occurs (isLoaded flag prevents double-save)
 
+
+## 2026-02-08 - Story #E2-S1: Implement GPS tracking hook with accuracy fallback
+
+**Implementation**:
+- Created lib/gps.ts with Haversine distance calculation
+- Implemented useGPSTracking hook with continuous position tracking
+- Added accuracy fallback: tries high accuracy first, falls back to lower if timeout
+- Minimum accuracy threshold (100m default, configurable)
+- Distance calculation helper: distanceTo(lat, lon)
+- GPS quality indicators (excellent/good/fair/poor) with Lisa Frank Noir colors
+- Error parsing with user-friendly messages
+- Created GPSStatus component to display GPS state
+- Auto-refresh every 5 seconds using watchPosition API
+
+**Files Changed**:
+- lib/gps.ts - Distance calculations, accuracy quality, error parsing
+- hooks/useGPSTracking.ts - Main GPS tracking hook with fallback logic
+- components/GPSStatus.tsx - Visual GPS status indicator with chips
+
+**Testing**:
+- Ran `npm run typecheck` - passes without errors
+- Hook returns: position, error, isLoading, isSupported, distanceTo(), refresh()
+- Accuracy fallback logic prevents blocking on high-accuracy timeout
+- Distance calculation uses Haversine formula (accurate to ~0.5%)
+
+**Learnings**:
+- watchPosition provides continuous updates vs. getCurrentPosition (one-time)
+- High accuracy can timeout on some devices (fallback essential)
+- Accuracy varies: indoor 50-100m, outdoor 5-20m, ideal <10m
+- useCallback prevents infinite re-renders in useEffect dependencies
+- GPS quality colors match Lisa Frank Noir palette
+
