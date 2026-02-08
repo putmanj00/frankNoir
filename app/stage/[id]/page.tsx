@@ -6,6 +6,7 @@ import { Button, Card, CardBody } from '@heroui/react';
 import { loadProgress, saveProgress } from '@/lib/storage';
 import { completeStage } from '@/lib/unlock';
 import { ProximityUnlock } from '@/components/ProximityUnlock';
+import { HintSystem } from '@/components/HintSystem';
 import type { Stage } from '@/lib/stages';
 
 export default function StagePage() {
@@ -177,13 +178,10 @@ export default function StagePage() {
           </CardBody>
         </Card>
 
-        {/* Hints Section (will be populated in E2-S4) */}
+        {/* Hints Section */}
         <Card className="glass-card">
           <CardBody className="p-6">
-            <h3 className="text-sm font-bold text-gray-400 mb-2">HINTS</h3>
-            <p className="text-xs text-gray-500">
-              Hint system will be available soon...
-            </p>
+            <HintSystem stage={stage} />
           </CardBody>
         </Card>
       </div>

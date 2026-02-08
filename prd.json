@@ -120,7 +120,7 @@
           "id": "E2-S4",
           "title": "Create 3-level progressive hint system (subtle → clear → obvious)",
           "description": "Add hint component that reveals 3 hints sequentially. Each hint is more explicit.",
-          "passes": false,
+          "passes": true,
           "acceptanceCriteria": [
             "Hint component created",
             "Shows hints 1, 2, 3 sequentially on request",

@@ -259,3 +259,35 @@ Creating an immersive scavenger hunt experience for my wife that recreates 14 ye
 - Progress bar uses HeroUI Progress with custom CSS variables
 - Auto-navigation with setTimeout gives user visual feedback before redirect
 
+
+## 2026-02-08 - Story #E2-S4: Create 3-level progressive hint system
+
+**Implementation**:
+- Created HintSystem component with 3 progressive hint levels
+- Hints must be revealed sequentially (cannot skip ahead)
+- Hint 1: Subtle (acid yellow label)
+- Hint 2: Clear (solar flare gold label)
+- Hint 3: Obvious (neon magenta label, bold text)
+- State persists in localStorage per stage (frankNoir:hints:stage{id})
+- Visual opacity indicates unlockable vs locked hints
+- Shows X/3 revealed counter
+- Integrated into stage detail page
+- Each stage has 3 hints defined in INITIAL_STAGES data
+
+**Files Changed**:
+- components/HintSystem.tsx - Progressive hint component with localStorage
+- app/stage/[id]/page.tsx - Integrated HintSystem component
+
+**Testing**:
+- Ran `npm run typecheck` - passes without errors
+- Sequential reveal logic prevents skipping
+- Hint state persists across page refreshes (localStorage)
+- Color-coded hint levels match Lisa Frank Noir palette
+- Opacity feedback shows which hints are available
+
+**Learnings**:
+- Per-stage localStorage keys: `frankNoir:hints:stage{id}`
+- Sequential reveal UX prevents users from seeing final hint immediately
+- Opacity transitions (100% → 50% → 30%) create visual hierarchy
+- Button only appears when hint is next in sequence
+
