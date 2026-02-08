@@ -25,7 +25,7 @@
           "id": "E1-S2",
           "title": "Implement Lisa Frank Noir color system and glassmorphism",
           "description": "Create CSS file with color tokens (void-black, neon-magenta, lisa-frank-purple, solar-flare-gold, acid-yellow). Add glassmorphism styles for cards.",
-          "passes": false,
+          "passes": true,
           "acceptanceCriteria": [
             "Color tokens defined as CSS variables",
             "Glassmorphism card styles created",
@@ -37,7 +37,7 @@
           "id": "E1-S3",
           "title": "Create timeline dashboard with 15 stage cards",
           "description": "Build main page.tsx with scrolling timeline. Create StageCard component showing id, title, location, time, status.",
-          "passes": false,
+          "passes": true,
           "acceptanceCriteria": [
             "Timeline dashboard page exists",
             "StageCard component created",

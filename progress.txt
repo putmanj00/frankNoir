@@ -53,3 +53,55 @@ Creating an immersive scavenger hunt experience for my wife that recreates 14 ye
 - CSS variables defined in :root for easy access throughout the app
 - Tailwind 4 is more streamlined than v3
 
+
+## 2026-02-08 - Story #E1-S2: Implement Lisa Frank Noir color system and glassmorphism
+
+**Implementation**:
+- This was completed as part of E1-S1
+- All color tokens defined in globals.css as CSS variables
+- Glassmorphism card style (.glass-card) with backdrop blur and neon magenta border
+- Gradient button style (.gradient-button) with purple-to-magenta gradient
+- JetBrains Mono font loaded via Google Fonts in layout.tsx
+
+**Files Changed**:
+- No additional files changed (work done in E1-S1)
+
+**Testing**:
+- Visual inspection of CSS classes
+- All color tokens accessible via var() syntax
+- Glassmorphism and gradient styles ready for component use
+
+**Learnings**:
+- Combining setup stories reduced duplication
+- CSS utility classes provide reusable patterns
+- Color tokens in CSS variables make theming easier
+
+
+## 2026-02-08 - Story #E1-S3: Create timeline dashboard with 15 stage cards
+
+**Implementation**:
+- Created lib/stages.ts with Stage interface and INITIAL_STAGES data (15 placeholder stages)
+- Built StageCard component using HeroUI Card with glassmorphism styling
+- Implemented status chips (Locked/Active/Completed) with correct colors from Stitch specs
+- Updated app/page.tsx to display vertical scrolling timeline
+- Added "rim lighting" effect using neon magenta border (1px stroke)
+- Applied monospaced font (JetBrains Mono) to match terminal aesthetic
+- Cards show: stage number, subtitle, time, location, description (when unlocked)
+
+**Files Changed**:
+- lib/stages.ts - Stage type definitions and initial 15-stage data structure
+- components/StageCard.tsx - Card component with status chips and glassmorphism
+- app/page.tsx - Timeline dashboard with vertical scroll layout
+
+**Testing**:
+- Ran `npm run typecheck` - passes without errors
+- All 15 stages display in timeline
+- Status colors match Stitch specs (Grey/Gold/Purple)
+- Mobile-first responsive layout (max-w-2xl container)
+
+**Learnings**:
+- HeroUI Card component integrates well with custom glass-card CSS class
+- Status chips use inline styles for exact color matching (#ffb622, #ac3cfe)
+- isPressable prop enables interactive cards (active/completed stages only)
+- Locked stages have reduced opacity (0.6) for visual hierarchy
+
