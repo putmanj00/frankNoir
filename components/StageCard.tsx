@@ -50,14 +50,14 @@ export function StageCard({ stage, onClick }: StageCardProps) {
       transition={{ duration: 0.3, delay: stage.id * 0.05 }}
       whileHover={isInteractive ? { scale: 1.02, y: -4 } : undefined}
       whileTap={isInteractive ? { scale: 0.98 } : undefined}
+      onClick={isInteractive ? onClick : undefined}
+      style={{ cursor: isInteractive ? 'pointer' : 'not-allowed' }}
     >
       <Card
-        isPressable={isInteractive}
-        onPress={isInteractive ? onClick : undefined}
+        isPressable={false}
         className="glass-card w-full transition-all duration-300 hover:shadow-lg hover:shadow-neon-magenta/20"
         style={{
           opacity: stage.status === 'locked' ? 0.6 : 1,
-          cursor: isInteractive ? 'pointer' : 'not-allowed',
         }}
       >
       <CardHeader className="flex justify-between items-start pb-2">

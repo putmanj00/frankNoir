@@ -607,3 +607,81 @@ Creating an immersive scavenger hunt experience for my wife that recreates 14 ye
 - Dev overrides essential for testing time-based features without waiting
 - Local time (new Date()) handles time zones automatically via system clock
 
+## 2026-02-08 - Story #E3-S5: Add stage transition animations
+
+**Implementation**:
+- Created comprehensive animation system using Framer Motion v12
+- Added PageTransition component for smooth page navigations (fade-in/fade-out)
+- Built StageUnlockAnimation: fullscreen celebration when stage completes
+- Enhanced StageCard with hover/tap interactions and staggered entrance
+- Wrapped all pages (timeline, stages, loading states) in PageTransition
+
+**Animation Components Created:**
+
+1. **PageTransition.tsx**:
+   - Fade-in: opacity 0→1, y: 10→0 (subtle upward motion)
+   - Duration: 0.3s with easeInOut
+   - Applied to all page entries/exits
+
+2. **StageUnlockAnimation.tsx**:
+   - Fullscreen overlay with celebration effects
+   - Expanding neon rings (magenta + purple)
+   - Gradient circle with checkmark SVG
+   - 8 particle bursts radiating outward (acid yellow)
+   - Stage number + "Complete!" message
+   - Auto-closes after 2 seconds, triggers navigation
+   - Uses AnimatePresence for smooth mount/unmount
+
+3. **Enhanced StageCard**:
+   - Staggered entrance: delay = stage.id * 0.05s (cascade effect)
+   - whileHover: scale 1.02, lift -4px (only for interactive cards)
+   - whileTap: scale 0.98 (tactile feedback)
+   - Status chip animations: scale + rotation on state change
+   - Locked chips: fade in
+   - Active chips: scale pop
+   - Completed chips: spring rotation effect
+
+**Animation Flow:**
+1. User solves puzzle → handleComplete() called
+2. Progress saved to localStorage
+3. showUnlockAnimation state set to true
+4. StageUnlockAnimation renders fullscreen (2s)
+5. onComplete callback fires → router.push('/')
+6. Timeline page loads with PageTransition fade-in
+7. StageCard for newly unlocked stage shows with animation
+
+**Files Changed:**
+- components/PageTransition.tsx (new)
+- components/StageUnlockAnimation.tsx (new)
+- components/StageCard.tsx - Added motion wrapper and chip animations
+- app/page.tsx - Wrapped in PageTransition
+- app/stage/[id]/page.tsx - Added unlock animation + PageTransition
+
+**Design Details:**
+- Lisa Frank Noir colors: Neon magenta (#f53fe8), purple (#ac3cfe), acid yellow (#fffd42)
+- Gradient effects on celebration circle
+- Expanding ring borders for dramatic reveal
+- Particle physics-based explosion pattern
+- Non-blocking: pointer-events-none on overlay
+- Stagger pattern creates organic feel on timeline
+
+**Testing**:
+- npm run typecheck - passes
+- npm run build - successful production build
+- All animations use GPU-accelerated transforms (scale, opacity, translate)
+- Framer Motion auto-optimizes for mobile (throttles on low-end devices)
+
+**Performance Notes:**
+- 0.3s duration chosen for perceived speed (< 500ms = feels instant)
+- Framer Motion uses transform/opacity (60fps animations)
+- No layout thrashing (animations don't trigger reflow)
+- AnimatePresence properly cleans up DOM nodes
+- Staggered delays total < 1s for all 15 cards (0.75s max)
+
+**Learnings**:
+- Staggered delays create "waterfall" effect (feels more dynamic than all-at-once)
+- whileHover should only apply to interactive elements (avoid confusing locked cards)
+- Fullscreen overlays need explicit z-index (z-50) and pointer-events control
+- Spring animations (for completed chip) feel more satisfying than easeOut
+- Auto-navigation after celebration animation better than manual button press
+

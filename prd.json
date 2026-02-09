@@ -256,7 +256,7 @@
           "id": "E3-S5",
           "title": "Add stage transition animations",
           "description": "Add smooth transitions when unlocking stages and navigating between stages.",
-          "passes": false,
+          "passes": true,
           "acceptanceCriteria": [
             "Unlock animation plays when stage unlocked",
             "Page transitions are smooth",
