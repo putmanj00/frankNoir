@@ -9,6 +9,7 @@ import { ProximityUnlock } from '@/components/ProximityUnlock';
 import { HintSystem } from '@/components/HintSystem';
 import { RadioPuzzle } from '@/components/RadioPuzzle';
 import { CoordinateInput } from '@/components/CoordinateInput';
+import { CountdownTimer } from '@/components/CountdownTimer';
 import { useMockGPS, isMockGPSEnabled } from '@/hooks/useMockGPS';
 import type { Stage } from '@/lib/stages';
 
@@ -194,11 +195,18 @@ export default function StagePage() {
                         ⏰ Recharge Protocol Active
                       </p>
                       <p className="text-xs text-gray-300">
-                        This stage unlocks at <span className="font-mono text-solar-flare-gold">5:00 PM</span>.
-                        Take a break and return at the designated time.
+                        Return home and wait for the designated time. Once unlocked,
+                        find the vintage pharmacist bottle in the honor system area.
                       </p>
                     </div>
-                    {/* For now, show coordinate input (countdown timer in E2-S8) */}
+
+                    {/* Countdown Timer */}
+                    <CountdownTimer
+                      targetTime="17:00"
+                      label="Recharge Protocol Ends In"
+                    />
+
+                    {/* Coordinate Input (always visible, but makes sense after timer) */}
                     <CoordinateInput
                       targetCoordinates={stage.coordinates || { lat: 39.1031, lng: -84.5120 }}
                       onSolved={handleComplete}

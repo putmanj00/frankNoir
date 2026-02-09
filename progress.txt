@@ -404,3 +404,38 @@ Creating an immersive scavenger hunt experience for my wife that recreates 14 ye
 - Monospaced font for coordinate entry improves readability
 - Two-step Stage 11 unlock: time lock (5PM) → coordinate input
 
+
+## 2026-02-08 - Story #E2-S8: Add countdown timer component
+
+**Implementation**:
+- Created CountdownTimer component for time-locked stages
+- Displays hours, minutes, seconds until target time
+- Target time format: "HH:MM" in 24-hour format (e.g., "17:00" for 5:00 PM)
+- Auto-updates every second via setInterval
+- Handles next-day timing (if target time already passed today)
+- Visual states:
+  - Normal: Neon magenta display
+  - Almost reached (<5 min): Solar flare gold with glow
+  - Time reached: Lisa Frank purple with checkmark
+- Optional callback when time reached
+- Monospaced font for timer display
+- Integrated into Stage 11 (Safe House) at 5:00 PM
+
+**Files Changed**:
+- components/CountdownTimer.tsx - Time-based countdown component
+- app/stage/[id]/page.tsx - Integrated countdown for Stage 11
+
+**Testing**:
+- Ran `npm run typecheck` - passes without errors
+- Calculates time difference correctly
+- Updates every second
+- Handles day rollover (if target time is tomorrow)
+- Visual states change appropriately
+
+**Learnings**:
+- setInterval updates every 1000ms for real-time countdown
+- Date math: target.getTime() - now.getTime() = milliseconds remaining
+- Cleanup interval on unmount to prevent memory leaks
+- Color transitions communicate urgency (gold in final 5 minutes)
+- 24-hour format simpler than AM/PM for parsing
+

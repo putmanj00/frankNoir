@@ -172,7 +172,7 @@
           "id": "E2-S8",
           "title": "Add countdown timer component for time-based stages",
           "description": "Create timer that counts down to a target time. Used for stages with specific timing.",
-          "passes": false,
+          "passes": true,
           "acceptanceCriteria": [
             "Countdown component created",
             "Shows hours, minutes, seconds",
