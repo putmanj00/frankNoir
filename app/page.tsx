@@ -28,9 +28,7 @@ export default function Home() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
-      setIsDevMode(
-        params.get('dev') === 'true' || window.location.hostname === 'localhost'
-      );
+      setIsDevMode(params.get('dev') === 'true');
       setIsMockMode(isMockGPSEnabled());
     }
   }, []);

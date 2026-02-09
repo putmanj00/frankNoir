@@ -30,8 +30,7 @@ export default function StagePage() {
   // Check for dev mode and mock GPS
   const isDevMode =
     typeof window !== 'undefined' &&
-    (window.location.search.includes('dev=true') ||
-      window.location.hostname === 'localhost');
+    window.location.search.includes('dev=true');
 
   const isMockMode = typeof window !== 'undefined' && isMockGPSEnabled();
   const mockPosition = useMockGPS(stages, isMockMode);
