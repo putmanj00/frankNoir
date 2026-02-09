@@ -19,7 +19,7 @@ export function RadioPuzzle({
   onSolved,
   tolerance = 0.01,
 }: RadioPuzzleProps) {
-  const [frequency, setFrequency] = useState(87.5); // FM radio start
+  const [frequency, setFrequency] = useState(10.0); // Start at low frequency
   const [isPlaying, setIsPlaying] = useState(false);
   const [isSolved, setIsSolved] = useState(false);
 
@@ -151,8 +151,8 @@ export function RadioPuzzle({
         <Slider
           label="Tune Frequency"
           step={0.01}
-          minValue={87.5}
-          maxValue={108.0}
+          minValue={10.0}
+          maxValue={30.0}
           value={frequency}
           onChange={(value) => setFrequency(value as number)}
           className="max-w-full"
@@ -164,8 +164,8 @@ export function RadioPuzzle({
           isDisabled={isSolved}
         />
         <div className="flex justify-between text-xs text-gray-500 font-mono">
-          <span>87.5 MHz</span>
-          <span>108.0 MHz</span>
+          <span>10.0 MHz</span>
+          <span>30.0 MHz</span>
         </div>
       </div>
 

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background -->
+  <rect width="512" height="512" fill="#030303"/>
+
+  <!-- Outer neon glow ring -->
+  <circle cx="256" cy="256" r="200" fill="none" stroke="#f53fe8" stroke-width="8" opacity="0.6"/>
+  <circle cx="256" cy="256" r="200" fill="none" stroke="#f53fe8" stroke-width="4" opacity="0.3" filter="blur(10px)"/>
+
+  <!-- Inner purple ring -->
+  <circle cx="256" cy="256" r="160" fill="none" stroke="#ac3cfe" stroke-width="6" opacity="0.8"/>
+
+  <!-- Center acid yellow accent -->
+  <circle cx="256" cy="256" r="120" fill="none" stroke="#fffd42" stroke-width="4" opacity="0.5"/>
+
+  <!-- Letter F (Frank) -->
+  <text x="256" y="310" font-family="Arial, sans-serif" font-size="180" font-weight="bold" fill="#f53fe8" text-anchor="middle" style="text-shadow: 0 0 20px #f53fe8;">F</text>
+
+  <!-- Small N overlay (Noir) -->
+  <text x="320" y="240" font-family="Arial, sans-serif" font-size="60" font-weight="bold" fill="#fffd42" text-anchor="middle" opacity="0.9">N</text>
+</svg>

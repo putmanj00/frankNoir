@@ -27,7 +27,7 @@ export const INITIAL_STAGES: Stage[] = [
     clue: 'Protocol initiated. Return to coordinates where SYSTEM.HOME was first established. Memory file 2012.01 awaits decryption.',
     unlockType: 'gps',
     unlockRadius: 200, // Increased for testing - adjust after field test
-    coordinates: { lat: 39.1031, lng: -84.5120 }, // TODO: Update with your actual home address
+    coordinates: { lat: 38.963, lng: -84.400 }, // 138 Breckenridge Dr, Alexandria KY
     hints: [
       'The first checkpoint is always where you rest your head.',
       'Think about the place where we said "I love you" for the first time.',
@@ -201,7 +201,7 @@ export const INITIAL_STAGES: Stage[] = [
     description: 'Even the longest journeys need a moment to breathe. Come home. Rest. The night is still young, and the best is yet to come.',
     clue: 'RECHARGE PROTOCOL ACTIVE. Return to SYSTEM.HOME at 17:00. Locate vintage pharmacist bottle in honor system area. Enter coordinates found within.',
     unlockType: 'time',
-    coordinates: { lat: 39.1031, lng: -84.5120 }, // TODO: Update with your actual home address
+    coordinates: { lat: 38.963, lng: -84.400 }, // 138 Breckenridge Dr, Alexandria KY
     hints: [
       'You can\'t proceed until 5:00 PM. Take a break. Have a snack. Recharge.',
       'When it\'s time, look in our honor system area—where we leave little surprises for each other.',
