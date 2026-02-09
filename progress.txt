@@ -439,3 +439,41 @@ Creating an immersive scavenger hunt experience for my wife that recreates 14 ye
 - Color transitions communicate urgency (gold in final 5 minutes)
 - 24-hour format simpler than AM/PM for parsing
 
+
+## 2026-02-08 - Story #E2-S9: Implement scan placeholder button
+
+**Implementation**:
+- Created ScanButton component simulating AR scanning
+- Configurable target object name (chandelier, crystals, mushrooms, etc.)
+- Scan duration: 3000ms (3 seconds) by default
+- Visual elements:
+  - Animated reticle with corner markers
+  - Center crosshair with pulsing glow
+  - Progress bar (0-100%)
+  - "SCANNING..." text with percentage
+  - Success checkmark on completion
+- Real-time progress updates every 50ms
+- Auto-completes and calls onScanComplete callback
+- Integrated for scan-type stages: 2, 5, 10, 13
+- MVP note indicates real AR can be added later
+
+**Files Changed**:
+- components/ScanButton.tsx - AR scan simulation component
+- app/stage/[id]/page.tsx - Integrated scan button for scan-type stages
+
+**Testing**:
+- Ran `npm run typecheck` - passes without errors
+- 3-second scan duration feels natural
+- Animated reticle provides visual feedback
+- Progress bar fills smoothly
+- Success state shows before unlock
+
+**Learnings**:
+- setInterval with 50ms updates creates smooth progress animation
+- Animated reticle (pulse + corner markers) mimics AR viewfinder
+- Neon magenta glow matches Lisa Frank Noir aesthetic
+- Simulated scan is sufficient for MVP (real AR post-Valentine's)
+- Target object names customize experience per stage
+
+**EPIC 2 COMPLETE!** All core mechanics implemented.
+

@@ -185,7 +185,7 @@
           "id": "E2-S9",
           "title": "Implement 'Scan' placeholder button (simulates AR)",
           "description": "Create button labeled 'Scan' that simulates AR scanning. Shows animation then unlocks stage.",
-          "passes": false,
+          "passes": true,
           "acceptanceCriteria": [
             "ScanButton component created",
             "Button shows 'scanning' animation",

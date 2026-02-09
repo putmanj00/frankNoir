@@ -10,6 +10,7 @@ import { HintSystem } from '@/components/HintSystem';
 import { RadioPuzzle } from '@/components/RadioPuzzle';
 import { CoordinateInput } from '@/components/CoordinateInput';
 import { CountdownTimer } from '@/components/CountdownTimer';
+import { ScanButton } from '@/components/ScanButton';
 import { useMockGPS, isMockGPSEnabled } from '@/hooks/useMockGPS';
 import type { Stage } from '@/lib/stages';
 
@@ -169,20 +170,21 @@ export default function StagePage() {
             )}
 
             {stage.unlockType === 'scan' && (
-              <div className="space-y-4">
-                <p className="text-sm text-gray-400">
-                  Scan the target object to unlock this stage.
-                </p>
-                {/* Scan component will be added in later stories */}
-                {isDevMode && (
-                  <Button
-                    className="gradient-button w-full"
-                    onPress={handleComplete}
-                  >
-                    📸 Complete Scan (Dev)
-                  </Button>
-                )}
-              </div>
+              <ScanButton
+                targetObject={
+                  stage.id === 2
+                    ? 'Sleepy Bee Chandelier'
+                    : stage.id === 5
+                    ? 'Rose Quartz and Citrine Crystals'
+                    : stage.id === 10
+                    ? 'Landing VPS Marker'
+                    : stage.id === 13
+                    ? 'Bioluminescent Mushroom Grid'
+                    : 'Target Object'
+                }
+                scanDuration={3000}
+                onScanComplete={handleComplete}
+              />
             )}
 
             {stage.unlockType === 'time' && (
