@@ -7,6 +7,7 @@ import { loadProgress, saveProgress } from '@/lib/storage';
 import { completeStage } from '@/lib/unlock';
 import { ProximityUnlock } from '@/components/ProximityUnlock';
 import { HintSystem } from '@/components/HintSystem';
+import { RadioPuzzle } from '@/components/RadioPuzzle';
 import { useMockGPS, isMockGPSEnabled } from '@/hooks/useMockGPS';
 import type { Stage } from '@/lib/stages';
 
@@ -139,17 +140,28 @@ export default function StagePage() {
 
             {stage.unlockType === 'puzzle' && (
               <div className="space-y-4">
-                <p className="text-sm text-gray-400">
-                  Complete the puzzle to unlock this stage.
-                </p>
-                {/* Puzzle component will be added in later stories */}
-                {isDevMode && (
-                  <Button
-                    className="gradient-button w-full"
-                    onPress={handleComplete}
-                  >
-                    🔓 Complete Puzzle (Dev)
-                  </Button>
+                {stage.id === 3 ? (
+                  // Stage 3: Radio frequency puzzle
+                  <RadioPuzzle
+                    targetFrequency={20.50}
+                    onSolved={handleComplete}
+                    tolerance={0.01}
+                  />
+                ) : (
+                  // Other puzzle stages (placeholder)
+                  <>
+                    <p className="text-sm text-gray-400">
+                      Complete the puzzle to unlock this stage.
+                    </p>
+                    {isDevMode && (
+                      <Button
+                        className="gradient-button w-full"
+                        onPress={handleComplete}
+                      >
+                        🔓 Complete Puzzle (Dev)
+                      </Button>
+                    )}
+                  </>
                 )}
               </div>
             )}

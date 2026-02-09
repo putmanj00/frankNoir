@@ -146,7 +146,7 @@
           "id": "E2-S6",
           "title": "Create radio frequency slider puzzle (Stage 03)",
           "description": "Build interactive slider that plays audio at different frequencies. Correct frequency unlocks stage.",
-          "passes": false,
+          "passes": true,
           "acceptanceCriteria": [
             "RadioPuzzle component created",
             "Slider adjusts audio frequency",

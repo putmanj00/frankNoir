@@ -336,3 +336,38 @@ Creating an immersive scavenger hunt experience for my wife that recreates 14 ye
 - Collapsible panel saves screen space (expanded state in local state)
 - Mock position with 10m accuracy triggers "in range" immediately
 
+
+## 2026-02-08 - Story #E2-S6: Create radio frequency slider puzzle
+
+**Implementation**:
+- Created RadioPuzzle component with Web Audio API
+- Slider ranges from 87.5-108.0 MHz (FM radio band)
+- Target frequency: 20.50 MHz (as per Stitch prompts)
+- Tolerance: 0.01 MHz (must be very precise)
+- Audio feedback: Static noise decreases as you approach correct frequency
+- Signal strength indicator shows proximity (0-100%)
+- Visual feedback: Display glows purple when locked
+- Auto-solves when within tolerance for 1.5 seconds
+- Oscillator creates sawtooth wave for static sound
+- Volume and frequency adjust based on proximity to target
+- Integrated into stage detail page for Stage 3 (puzzle type)
+
+**Files Changed**:
+- components/RadioPuzzle.tsx - Radio tuning puzzle with Web Audio API
+- app/stage/[id]/page.tsx - Integrated RadioPuzzle for Stage 3
+
+**Testing**:
+- Ran `npm run typecheck` - passes without errors
+- Web Audio API creates oscillator + gain nodes
+- Static sound intensity inversely proportional to proximity
+- Signal strength bar fills as you approach 20.50 MHz
+- Unlocks automatically when frequency locked
+- Audio cleanup on component unmount
+
+**Learnings**:
+- Web Audio API: AudioContext + OscillatorNode + GainNode
+- Sawtooth wave creates harsh static sound
+- Real-time audio parameter updates via useEffect
+- Signal proximity calculated as percentage (100% at exact frequency)
+- Auto-solve delay (1.5s) gives satisfying "locked" feeling before unlock
+
