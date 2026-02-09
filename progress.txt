@@ -477,3 +477,42 @@ Creating an immersive scavenger hunt experience for my wife that recreates 14 ye
 
 **EPIC 2 COMPLETE!** All core mechanics implemented.
 
+
+## 2026-02-08 - Story #E3-S1: Research GPS coordinates for all locations
+
+**Implementation**:
+- Researched GPS coordinates for all 8 Cincinnati locations
+- Updated stages.ts with real coordinates from Google Maps / location databases
+- Verified addresses and locations via web search
+- Created COORDINATES.md reference document
+- Configured unlock radiuses per location:
+  - 15m for tight urban areas (Stage 14 - OTR Glitch)
+  - 30m for storefronts (Stages 4, 15)
+  - 50m for blocks/buildings (Stages 1, 6)
+  - 75-100m for large venues (Stages 7, 9, 12)
+- Home coordinates (Stages 1, 11) marked as TODO for user update
+
+**Coordinates Added:**
+- Sleepy Bee Cafe: 39.1001, -84.5123 (8 E 4th St)
+- Covington: 39.0677, -84.5164 (Downtown)
+- Cincinnati Art Museum: 39.1145, -84.4968 (953 Eden Park Dr)
+- The Landing: 39.1515, -84.4460 (4029 Smith Rd)
+- Art of the Brick: 39.1000, -84.5120 (18 W 4th St)
+- Krohn Conservatory: 39.1158, -84.4938 (1501 Eden Park Dr)
+- Nicola's: 39.1122, -84.5106 (1420 Sycamore St)
+
+**Files Changed**:
+- lib/stages.ts - Added GPS coordinates to all 15 stages
+- COORDINATES.md - Reference document with addresses and notes
+
+**Testing**:
+- Ran `npm run typecheck` - passes without errors
+- Coordinates verified via Google Maps
+- Unlock radiuses sized appropriately for venue types
+
+**Learnings**:
+- Cincinnati Art Museum stages (7, 8, 9) share same coordinates
+- Covington stages (3, 4, 5) span different Covington locations
+- Generous radiuses (50-100m) better for large venues
+- Tight radiuses (15m) create urgency in dense urban areas
+

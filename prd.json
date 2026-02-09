@@ -205,7 +205,7 @@
           "id": "E3-S1",
           "title": "Research and document GPS coordinates for all 8 locations",
           "description": "Look up GPS coordinates for: Home, Sleepy Bee, Covington, Art Museum, The Landing, Art of the Brick, Krohn Conservatory, Nicola's. Document in stages.ts.",
-          "passes": false,
+          "passes": true,
           "acceptanceCriteria": [
             "Coordinates documented for all 8 locations",
             "Coordinates verified on Google Maps",
