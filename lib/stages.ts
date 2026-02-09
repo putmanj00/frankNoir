@@ -26,7 +26,7 @@ export const INITIAL_STAGES: Stage[] = [
     description: 'Every story has a beginning. Ours started in the simplest place—where we built a life together, one moment at a time.',
     clue: 'Protocol initiated. Return to coordinates where SYSTEM.HOME was first established. Memory file 2012.01 awaits decryption.',
     unlockType: 'gps',
-    unlockRadius: 50,
+    unlockRadius: 200, // Increased for testing - adjust after field test
     coordinates: { lat: 39.1031, lng: -84.5120 }, // TODO: Update with your actual home address
     hints: [
       'The first checkpoint is always where you rest your head.',

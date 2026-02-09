@@ -37,7 +37,7 @@ export function useGPSTracking(
     enableHighAccuracy = true,
     timeout = 10000,
     maximumAge = 0,
-    minAccuracy = 100, // Accept positions within 100m accuracy
+    minAccuracy = 500, // Accept positions within 500m accuracy (lenient for testing)
     updateInterval = 5000, // Update every 5 seconds
     mockPosition = null,
   } = options;

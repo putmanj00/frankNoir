@@ -132,6 +132,14 @@ export function ProximityUnlock({
           </Button>
         </div>
       )}
+
+      {/* Testing Override - Show GPS accuracy info */}
+      {!inRange && position && (
+        <div className="mt-4 text-xs text-gray-500 font-mono">
+          GPS Accuracy: {position.accuracy?.toFixed(0)}m
+          {position.accuracy > 100 && ' (needs better signal)'}
+        </div>
+      )}
     </div>
   );
 }
