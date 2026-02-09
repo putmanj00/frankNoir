@@ -22,6 +22,7 @@ export default function StagePage() {
   const [stages, setStages] = useState<Stage[]>([]);
   const [stage, setStage] = useState<Stage | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [timeUnlocked, setTimeUnlocked] = useState(false);
 
   // Check for dev mode and mock GPS
   const isDevMode =
@@ -206,14 +207,43 @@ export default function StagePage() {
                     <CountdownTimer
                       targetTime="17:00"
                       label="Recharge Protocol Ends In"
+                      onTimeReached={() => setTimeUnlocked(true)}
                     />
 
-                    {/* Coordinate Input (always visible, but makes sense after timer) */}
-                    <CoordinateInput
-                      targetCoordinates={stage.coordinates || { lat: 39.1031, lng: -84.5120 }}
-                      onSolved={handleComplete}
-                      tolerance={0.001}
-                    />
+                    {/* Coordinate Input - LOCKED until time reached */}
+                    {timeUnlocked ? (
+                      <div className="space-y-2">
+                        <div className="p-3 bg-lisa-frank-purple/10 border border-lisa-frank-purple rounded">
+                          <p className="text-sm text-lisa-frank-purple font-bold">
+                            ✓ Time lock released! Now find the pharmacist bottle.
+                          </p>
+                        </div>
+                        <CoordinateInput
+                          targetCoordinates={stage.coordinates || { lat: 39.1031, lng: -84.5120 }}
+                          onSolved={handleComplete}
+                          tolerance={0.001}
+                        />
+                      </div>
+                    ) : (
+                      <div className="p-4 border border-gray-700 rounded bg-void-black/50 text-center">
+                        <p className="text-gray-500 mb-2">🔒 Coordinate input locked</p>
+                        <p className="text-xs text-gray-600">
+                          Wait for the countdown to complete before entering coordinates.
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Dev override */}
+                    {isDevMode && !timeUnlocked && (
+                      <Button
+                        size="sm"
+                        variant="flat"
+                        onPress={() => setTimeUnlocked(true)}
+                        className="w-full"
+                      >
+                        🔓 Skip Time Lock (Dev)
+                      </Button>
+                    )}
                   </>
                 ) : (
                   // Other time-locked stages
