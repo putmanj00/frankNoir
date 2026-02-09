@@ -371,3 +371,36 @@ Creating an immersive scavenger hunt experience for my wife that recreates 14 ye
 - Signal proximity calculated as percentage (100% at exact frequency)
 - Auto-solve delay (1.5s) gives satisfying "locked" feeling before unlock
 
+
+## 2026-02-08 - Story #E2-S7: Build coordinate input validator
+
+**Implementation**:
+- Created CoordinateInput component for GPS coordinate entry
+- Validates decimal degree format (lat: -90 to 90, lng: -180 to 180)
+- Tolerance: 0.001 degrees (~111 meters)
+- Two input fields: latitude and longitude
+- Real-time format validation
+- Calculates distance from target if wrong coordinates entered
+- Visual feedback: error messages, success animation
+- Acid yellow labels match Lisa Frank Noir palette
+- Integrated into Stage 11 (Safe House) after time lock
+- Format help shows example coordinates with N/S/E/W directions
+
+**Files Changed**:
+- components/CoordinateInput.tsx - GPS coordinate input validator
+- app/stage/[id]/page.tsx - Integrated for Stage 11
+
+**Testing**:
+- Ran `npm run typecheck` - passes without errors
+- Validates lat/lng ranges correctly
+- Calculates approximate distance when wrong (km)
+- Success state triggers after 1.5s delay
+- Format help shows decimal degrees with cardinal directions
+
+**Learnings**:
+- Decimal degrees: simpler than DMS (degrees/minutes/seconds)
+- Tolerance of 0.001° ≈ 111m (sufficient for bottle location)
+- Distance calculation: √(Δlat² + Δlng²) * 111km per degree
+- Monospaced font for coordinate entry improves readability
+- Two-step Stage 11 unlock: time lock (5PM) → coordinate input
+

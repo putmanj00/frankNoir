@@ -8,6 +8,7 @@ import { completeStage } from '@/lib/unlock';
 import { ProximityUnlock } from '@/components/ProximityUnlock';
 import { HintSystem } from '@/components/HintSystem';
 import { RadioPuzzle } from '@/components/RadioPuzzle';
+import { CoordinateInput } from '@/components/CoordinateInput';
 import { useMockGPS, isMockGPSEnabled } from '@/hooks/useMockGPS';
 import type { Stage } from '@/lib/stages';
 
@@ -185,17 +186,40 @@ export default function StagePage() {
 
             {stage.unlockType === 'time' && (
               <div className="space-y-4">
-                <p className="text-sm text-gray-400">
-                  This stage unlocks at a specific time.
-                </p>
-                {/* Countdown timer will be added in later stories */}
-                {isDevMode && (
-                  <Button
-                    className="gradient-button w-full"
-                    onPress={handleComplete}
-                  >
-                    ⏰ Complete Time-lock (Dev)
-                  </Button>
+                {stage.id === 11 ? (
+                  // Stage 11: Safe House - Time lock + Coordinate input
+                  <>
+                    <div className="p-4 bg-solar-flare-gold/10 border border-solar-flare-gold rounded mb-4">
+                      <p className="text-sm text-solar-flare-gold font-bold mb-2">
+                        ⏰ Recharge Protocol Active
+                      </p>
+                      <p className="text-xs text-gray-300">
+                        This stage unlocks at <span className="font-mono text-solar-flare-gold">5:00 PM</span>.
+                        Take a break and return at the designated time.
+                      </p>
+                    </div>
+                    {/* For now, show coordinate input (countdown timer in E2-S8) */}
+                    <CoordinateInput
+                      targetCoordinates={stage.coordinates || { lat: 39.1031, lng: -84.5120 }}
+                      onSolved={handleComplete}
+                      tolerance={0.001}
+                    />
+                  </>
+                ) : (
+                  // Other time-locked stages
+                  <>
+                    <p className="text-sm text-gray-400">
+                      This stage unlocks at a specific time.
+                    </p>
+                    {isDevMode && (
+                      <Button
+                        className="gradient-button w-full"
+                        onPress={handleComplete}
+                      >
+                        ⏰ Complete Time-lock (Dev)
+                      </Button>
+                    )}
+                  </>
                 )}
               </div>
             )}

@@ -159,7 +159,7 @@
           "id": "E2-S7",
           "title": "Build coordinate input validator (Stage 11)",
           "description": "Create input field for GPS coordinates. Validates format and checks if coordinates match target.",
-          "passes": false,
+          "passes": true,
           "acceptanceCriteria": [
             "Coordinate input component created",
             "Validates latitude/longitude format",
