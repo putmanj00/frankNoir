@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { HeroUIProvider } from "@heroui/react";
+import { Providers } from "@/components/Providers";
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -22,9 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={jetbrainsMono.className}>
-        <HeroUIProvider>
+        <Providers>
           {children}
-        </HeroUIProvider>
+        </Providers>
       </body>
     </html>
   );
