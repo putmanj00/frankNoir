@@ -11,6 +11,8 @@ import { RadioPuzzle } from '@/components/RadioPuzzle';
 import { CoordinateInput } from '@/components/CoordinateInput';
 import { CountdownTimer } from '@/components/CountdownTimer';
 import { ScanButton } from '@/components/ScanButton';
+import { PageTransition } from '@/components/PageTransition';
+import { StageUnlockAnimation } from '@/components/StageUnlockAnimation';
 import { useMockGPS, isMockGPSEnabled } from '@/hooks/useMockGPS';
 import type { Stage } from '@/lib/stages';
 
@@ -23,6 +25,7 @@ export default function StagePage() {
   const [stage, setStage] = useState<Stage | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [timeUnlocked, setTimeUnlocked] = useState(false);
+  const [showUnlockAnimation, setShowUnlockAnimation] = useState(false);
 
   // Check for dev mode and mock GPS
   const isDevMode =
@@ -48,43 +51,59 @@ export default function StagePage() {
     setStages(updatedStages);
     saveProgress(updatedStages);
 
-    // Navigate back to timeline after short delay
-    setTimeout(() => {
-      router.push('/');
-    }, 1500);
+    // Show unlock animation
+    setShowUnlockAnimation(true);
+  };
+
+  const handleAnimationComplete = () => {
+    // Navigate back to timeline after animation
+    router.push('/');
   };
 
   if (!isLoaded || !stage) {
     return (
-      <main className="min-h-screen p-4 flex items-center justify-center">
-        <div className="text-center text-gray-400">Loading...</div>
-      </main>
+      <PageTransition>
+        <main className="min-h-screen p-4 flex items-center justify-center">
+          <div className="text-center text-gray-400">Loading...</div>
+        </main>
+      </PageTransition>
     );
   }
 
   // Don't allow access to locked stages
   if (stage.status === 'locked') {
     return (
-      <main className="min-h-screen p-4">
-        <div className="max-w-2xl mx-auto space-y-4">
-          <Button variant="flat" onPress={() => router.push('/')}>
-            ← Back
-          </Button>
-          <Card className="glass-card">
-            <CardBody className="p-6 text-center">
-              <p className="text-gray-400 mb-4">🔒 This stage is locked</p>
-              <p className="text-sm text-gray-500">
-                Complete the previous stage to unlock this one.
-              </p>
-            </CardBody>
-          </Card>
-        </div>
-      </main>
+      <PageTransition>
+        <main className="min-h-screen p-4">
+          <div className="max-w-2xl mx-auto space-y-4">
+            <Button variant="flat" onPress={() => router.push('/')}>
+              ← Back
+            </Button>
+            <Card className="glass-card">
+              <CardBody className="p-6 text-center">
+                <p className="text-gray-400 mb-4">🔒 This stage is locked</p>
+                <p className="text-sm text-gray-500">
+                  Complete the previous stage to unlock this one.
+                </p>
+              </CardBody>
+            </Card>
+          </div>
+        </main>
+      </PageTransition>
     );
   }
 
   return (
-    <main className="min-h-screen p-4">
+    <>
+      {/* Unlock Animation Overlay */}
+      <StageUnlockAnimation
+        show={showUnlockAnimation}
+        stageNumber={stageId}
+        onComplete={handleAnimationComplete}
+      />
+
+      <PageTransition>
+        <main className="min-h-screen p-4">
       <div className="max-w-2xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -274,5 +293,7 @@ export default function StagePage() {
         </Card>
       </div>
     </main>
+      </PageTransition>
+    </>
   );
 }

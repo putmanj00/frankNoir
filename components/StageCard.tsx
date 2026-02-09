@@ -1,4 +1,7 @@
+'use client';
+
 import { Card, CardBody, CardHeader, Chip } from "@heroui/react";
+import { motion } from "framer-motion";
 import type { Stage } from "@/lib/stages";
 
 interface StageCardProps {
@@ -9,29 +12,54 @@ interface StageCardProps {
 export function StageCard({ stage, onClick }: StageCardProps) {
   // Determine chip color based on status
   const getStatusChip = () => {
-    switch (stage.status) {
-      case 'locked':
-        return <Chip color="default" variant="flat">Locked</Chip>;
-      case 'active':
-        return <Chip style={{ backgroundColor: '#ffb622', color: '#030303' }} variant="solid">Active</Chip>;
-      case 'completed':
-        return <Chip style={{ backgroundColor: '#ac3cfe', color: '#ffffff' }} variant="solid">Completed</Chip>;
-    }
+    const chipContent = {
+      locked: <Chip color="default" variant="flat">Locked</Chip>,
+      active: (
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <Chip style={{ backgroundColor: '#ffb622', color: '#030303' }} variant="solid">
+            Active
+          </Chip>
+        </motion.div>
+      ),
+      completed: (
+        <motion.div
+          initial={{ scale: 0.8, rotate: -10 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ type: 'spring', stiffness: 200, damping: 10 }}
+        >
+          <Chip style={{ backgroundColor: '#ac3cfe', color: '#ffffff' }} variant="solid">
+            Completed
+          </Chip>
+        </motion.div>
+      ),
+    };
+    return chipContent[stage.status];
   };
 
   // Determine if card should be clickable
   const isInteractive = stage.status === 'active' || stage.status === 'completed';
 
   return (
-    <Card
-      isPressable={isInteractive}
-      onPress={isInteractive ? onClick : undefined}
-      className="glass-card w-full transition-all duration-300 hover:shadow-lg hover:shadow-neon-magenta/20"
-      style={{
-        opacity: stage.status === 'locked' ? 0.6 : 1,
-        cursor: isInteractive ? 'pointer' : 'not-allowed',
-      }}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, delay: stage.id * 0.05 }}
+      whileHover={isInteractive ? { scale: 1.02, y: -4 } : undefined}
+      whileTap={isInteractive ? { scale: 0.98 } : undefined}
     >
+      <Card
+        isPressable={isInteractive}
+        onPress={isInteractive ? onClick : undefined}
+        className="glass-card w-full transition-all duration-300 hover:shadow-lg hover:shadow-neon-magenta/20"
+        style={{
+          opacity: stage.status === 'locked' ? 0.6 : 1,
+          cursor: isInteractive ? 'pointer' : 'not-allowed',
+        }}
+      >
       <CardHeader className="flex justify-between items-start pb-2">
         <div className="flex flex-col gap-1 flex-grow">
           <div className="flex items-center gap-2">
@@ -67,5 +95,6 @@ export function StageCard({ stage, onClick }: StageCardProps) {
         </div>
       </CardBody>
     </Card>
+    </motion.div>
   );
 }

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { StageCard } from '@/components/StageCard';
 import { AdminPanel } from '@/components/AdminPanel';
+import { PageTransition } from '@/components/PageTransition';
 import { INITIAL_STAGES, type Stage } from '@/lib/stages';
 import { loadProgress, saveProgress } from '@/lib/storage';
 import {
@@ -74,16 +75,19 @@ export default function Home() {
   // Show loading state
   if (!isLoaded) {
     return (
-      <main className="min-h-screen p-4 flex items-center justify-center">
-        <div className="text-center">
-          <div className="text-neon-magenta text-lg font-mono">Loading...</div>
-        </div>
-      </main>
+      <PageTransition>
+        <main className="min-h-screen p-4 flex items-center justify-center">
+          <div className="text-center">
+            <div className="text-neon-magenta text-lg font-mono">Loading...</div>
+          </div>
+        </main>
+      </PageTransition>
     );
   }
 
   return (
-    <main className="min-h-screen p-4 pb-20">
+    <PageTransition>
+      <main className="min-h-screen p-4 pb-20">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="mb-8 text-center space-y-2">
@@ -152,5 +156,6 @@ export default function Home() {
         </div>
       </div>
     </main>
+    </PageTransition>
   );
 }
