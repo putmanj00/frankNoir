@@ -305,19 +305,6 @@
             "Basic functionality works on target device",
             "Performance is acceptable"
           ]
-        },
-        {
-          "id": "E3-S9",
-          "title": "Create printable backup clues (in case of tech issues)",
-          "description": "Create PDF with all clues and solutions. Print as backup in case phone dies or GPS fails.",
-          "passes": false,
-          "acceptanceCriteria": [
-            "PDF created with all clues",
-            "Solutions documented (for your reference)",
-            "Manual unlock codes listed",
-            "Formatted for easy printing",
-            "Stored securely (not committed to git)"
-          ]
         }
       ]
     }
