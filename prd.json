@@ -217,7 +217,7 @@
           "id": "E3-S2",
           "title": "Add all stage data (coordinates, clues, narrative text, 3 hints per stage)",
           "description": "Populate stages.ts with complete data for all 15 stages. Include clues, descriptions, unlock types, and 3 hints each.",
-          "passes": false,
+          "passes": true,
           "acceptanceCriteria": [
             "All 15 stages have complete data",
             "Each stage has 3 progressive hints",

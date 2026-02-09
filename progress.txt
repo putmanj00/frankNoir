@@ -516,3 +516,55 @@ Creating an immersive scavenger hunt experience for my wife that recreates 14 ye
 - Generous radiuses (50-100m) better for large venues
 - Tight radiuses (15m) create urgency in dense urban areas
 
+## 2026-02-08 - Story #E3-S2: Add all stage data (clues, narrative, hints)
+
+**Implementation**:
+- Enhanced all 15 stages with rich, romantic narrative descriptions
+- Crafted cryptic yet solvable clues with "Lisa Frank Noir" cyberpunk aesthetic
+- Created progressive 3-level hint system for each stage (subtle → clear → obvious)
+- Ensured narrative flow tells the 14-year relationship story across timeline
+- Fixed TypeScript syntax errors (apostrophe escaping in string literals)
+
+**Stages Enhanced:**
+- Stage 01: "The Origin" - Home, where the story began
+- Stage 02: "The Hive" - Sleepy Bee Cafe, Sunday breakfast ritual
+- Stage 03: "Virtual Radio" - Radio frequency puzzle, signal clarity metaphor
+- Stage 04: "Gelato Dreams" - Italian confectionery, sweet summer memories
+- Stage 05: "Crystal Vision" - Rose Quartz & Citrine, love and joy
+- Stage 06: "The Bridge" - Roebling Bridge, connection between two lives
+- Stage 07: "Artifact Recovery" - Art Museum entry, free admission priceless memories
+- Stage 08: "Damascus Cipher" - Layers of relationship like Damascus steel
+- Stage 09: "Museum Exit" - Departure protocol, moving forward
+- Stage 10: "The 420 Protocol" - The Landing, clearing the fog for clarity
+- Stage 11: "Safe House" - Home return with time-lock, pharmacist bottle puzzle
+- Stage 12: "The Master Builder" - Art of the Brick, building life together
+- Stage 13: "Fungal Glow" - Krohn mushrooms, light in darkness
+- Stage 14: "The Glitch Tracker" - OTR navigation, finding signal in noise
+- Stage 15: "Protocol Omega" - Nicola's finale, end and beginning
+
+**Files Changed**:
+- lib/stages.ts - Enhanced descriptions, clues, and hints for all 15 stages
+
+**Key Narrative Elements**:
+- Home as beginning and pause point (Stages 1, 11)
+- Food/drink rituals (Sleepy Bee, Gelato, Nicola's)
+- Crystal metaphor for belief and love (Stage 5)
+- Bridge as relationship metaphor (Stage 6)
+- Art museum as free, repeated ritual (Stages 7-9)
+- Damascus steel = layered complexity (Stage 8)
+- Technology/signal metaphors throughout (Lisa Frank Noir aesthetic)
+- 14 years = 15 stages = one complete journey
+
+**Testing**:
+- Ran `npm run typecheck` - passes
+- Ran `npm run build` - successful production build
+- All apostrophes properly escaped in string literals
+- Narrative flows coherently from 9:00 AM to 9:45 PM
+
+**Learnings**:
+- Apostrophes in single-quoted strings must be escaped (\')
+- Cryptic clues work best with: location hint + action + metaphor
+- Progressive hints: first = thematic, second = specific, third = explicit
+- Lisa Frank Noir voice = cyberpunk brevity + romantic depth
+- Each stage should serve the narrative arc (origin → journey → destination)
+
