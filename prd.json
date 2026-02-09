@@ -307,6 +307,78 @@
           ]
         }
       ]
+    },
+    {
+      "id": "E4",
+      "title": "AR & Image Recognition (Post-MVP)",
+      "description": "Real AR scanning and image recognition for enhanced experience",
+      "stories": [
+        {
+          "id": "E4-S1",
+          "title": "Research and integrate AR.js for markerless AR",
+          "description": "Implement AR.js to enable real camera-based scanning instead of simulated scan button. Test with phone camera and marker detection.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "AR.js library integrated",
+            "Camera permission request works",
+            "Can detect and track markers/objects",
+            "Works on iOS Safari and Android Chrome",
+            "Fallback to scan button if AR not supported"
+          ]
+        },
+        {
+          "id": "E4-S2",
+          "title": "Implement image recognition for Dimitridon Studios crystals (Stage 5)",
+          "description": "Use TensorFlow.js or similar to recognize Rose Quartz and Citrine crystals via camera. Train model or use pre-trained object detection.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "Camera opens when user taps scan",
+            "Can identify rose quartz (pink crystal)",
+            "Can identify citrine (yellow crystal)",
+            "Shows overlay with crystal name when detected",
+            "Stage unlocks when both crystals scanned"
+          ]
+        },
+        {
+          "id": "E4-S3",
+          "title": "Add AR markers for all scan stages (2, 5, 10, 13)",
+          "description": "Create printable AR markers for each scan location. Generate QR-like markers that trigger stage unlock when scanned.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "Markers generated for all 4 scan stages",
+            "Markers are printable (PDF format)",
+            "AR.js can detect and validate markers",
+            "Each marker unlocks correct stage only",
+            "Instructions for placing markers at locations"
+          ]
+        },
+        {
+          "id": "E4-S4",
+          "title": "Implement object detection for Sleepy Bee chandelier (Stage 2)",
+          "description": "Detect chandelier shape/features using camera. Could use color detection (warm lighting) or shape recognition.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "Camera opens at Sleepy Bee location",
+            "Detects overhead lighting fixture",
+            "Visual feedback when pointing at chandelier",
+            "Stage unlocks when chandelier detected",
+            "Works in restaurant lighting conditions"
+          ]
+        },
+        {
+          "id": "E4-S5",
+          "title": "Add bioluminescent mushroom detection (Stage 13)",
+          "description": "Detect glowing mushroom exhibit at Krohn Conservatory. Use color detection for green/blue glow patterns.",
+          "passes": false,
+          "acceptanceCriteria": [
+            "Camera opens at conservatory",
+            "Detects green/blue bioluminescent glow",
+            "Visual overlay highlights detected mushrooms",
+            "Stage unlocks when mushroom grid detected",
+            "Works in low-light conservatory conditions"
+          ]
+        }
+      ]
     }
   ]
 }
