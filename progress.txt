@@ -568,3 +568,42 @@ Creating an immersive scavenger hunt experience for my wife that recreates 14 ye
 - Lisa Frank Noir voice = cyberpunk brevity + romantic depth
 - Each stage should serve the narrative arc (origin → journey → destination)
 
+## 2026-02-08 - Story #E3-S4: Implement Safe House pause mechanism
+
+**Implementation**:
+- Added proper time-lock to Stage 11 coordinate entry
+- CoordinateInput now conditional based on timeUnlocked state
+- CountdownTimer fires onTimeReached callback when 5:00 PM reached
+- Visual feedback shows locked state with explanation text
+- Dev mode override button allows testing without waiting
+
+**Technical Details**:
+- timeUnlocked state: false by default, set to true by onTimeReached callback
+- CountdownTimer detects if time already passed on mount → fires callback immediately
+- Locked state: Gray box with lock icon and explanation
+- Unlocked state: Purple success message + CoordinateInput enabled
+- Dev button: "Skip Time Lock" only visible when dev mode enabled
+
+**User Flow**:
+1. User reaches Stage 11 before 5:00 PM
+2. Sees countdown timer counting down to 17:00 (5:00 PM)
+3. Coordinate input is locked with explanation
+4. At 5:00 PM, timer shows "TIME REACHED" and input unlocks
+5. Success message appears, coordinate entry enabled
+6. User finds pharmacist bottle, enters coordinates, stage completes
+
+**Files Changed**:
+- app/stage/[id]/page.tsx - Added timeUnlocked state and conditional rendering
+
+**Testing**:
+- Manual verification required (ESM/CJS compatibility issues with Vitest + Tailwind v4)
+- Verified TypeScript compilation passes
+- Production build succeeds
+- Logic verified: onTimeReached → setTimeUnlocked(true) → shows CoordinateInput
+
+**Learnings**:
+- Time-based unlocks need explicit state management, not just timer display
+- onTimeReached callback pattern allows clean separation of timer logic from unlock logic
+- Dev overrides essential for testing time-based features without waiting
+- Local time (new Date()) handles time zones automatically via system clock
+

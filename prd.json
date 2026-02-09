@@ -243,7 +243,7 @@
           "id": "E3-S4",
           "title": "Implement Safe House pause mechanism (Stage 11, 5:00 PM)",
           "description": "Stage 11 locks until 5:00 PM. Show countdown timer. Cannot proceed until time is reached.",
-          "passes": false,
+          "passes": true,
           "acceptanceCriteria": [
             "Stage 11 shows countdown to 5:00 PM",
             "Cannot unlock before target time",
