@@ -140,6 +140,21 @@ export function ProximityUnlock({
           {position.accuracy > 100 && ' (needs better signal)'}
         </div>
       )}
+
+      {/* Emergency Skip Button - Always visible for testing */}
+      {!inRange && (
+        <div className="mt-4 pt-4 border-t border-gray-700">
+          <Button
+            size="sm"
+            variant="flat"
+            color="warning"
+            onPress={onUnlock}
+            className="w-full opacity-50 hover:opacity-100"
+          >
+            ⚠️ Skip GPS (Testing)
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

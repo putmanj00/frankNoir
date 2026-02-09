@@ -148,20 +148,21 @@ export function RadioPuzzle({
 
       {/* Frequency Slider */}
       <div className="space-y-4">
-        <Slider
-          label="Tune Frequency"
+        <label className="block text-sm text-gray-400 font-mono mb-2">
+          Tune Frequency
+        </label>
+        <input
+          type="range"
+          min={10.0}
+          max={30.0}
           step={0.01}
-          minValue={10.0}
-          maxValue={30.0}
           value={frequency}
-          onChange={(value) => setFrequency(value as number)}
-          className="max-w-full"
-          classNames={{
-            thumb: 'bg-neon-magenta',
-            track: 'bg-gray-800',
-            filler: 'bg-gradient-to-r from-lisa-frank-purple to-neon-magenta',
+          onChange={(e) => setFrequency(parseFloat(e.target.value))}
+          disabled={isSolved}
+          className="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-neon-magenta"
+          style={{
+            background: `linear-gradient(to right, #ac3cfe 0%, #f53fe8 ${((frequency - 10) / 20) * 100}%, #333 ${((frequency - 10) / 20) * 100}%, #333 100%)`,
           }}
-          isDisabled={isSolved}
         />
         <div className="flex justify-between text-xs text-gray-500 font-mono">
           <span>10.0 MHz</span>

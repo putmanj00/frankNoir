@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { StageCard } from '@/components/StageCard';
 import { AdminPanel } from '@/components/AdminPanel';
 import { PageTransition } from '@/components/PageTransition';
+import { ResetButton } from '@/components/ResetButton';
 import { INITIAL_STAGES, type Stage } from '@/lib/stages';
 import { loadProgress, saveProgress } from '@/lib/storage';
 import {
@@ -65,6 +66,11 @@ export default function Home() {
   const handleStagesUpdate = (updatedStages: Stage[]) => {
     setStages(updatedStages);
     saveProgress(updatedStages);
+  };
+
+  const handleReset = () => {
+    localStorage.clear();
+    window.location.reload();
   };
 
   const progress = getProgress(stages);
@@ -153,6 +159,9 @@ export default function Home() {
           )}
         </div>
       </div>
+
+      {/* Reset Button - Always visible for testing */}
+      <ResetButton onReset={handleReset} />
     </main>
     </PageTransition>
   );
